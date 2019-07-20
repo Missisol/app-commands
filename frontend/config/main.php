@@ -46,6 +46,19 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'api/v1' => 'v1',
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/user'],
+                    'pluralize' => false,
+                    'prefix' => 'api/',
+                    'extraPatterns' => [
+                        'POST verify-email' => 'verify-email',
+                        'POST auth' => 'auth',
+                        'POST recovery' => 'recovery',
+                        'POST reset-password' => 'reset-password',
+                    ],
+                ]
             ],
         ],
     ],

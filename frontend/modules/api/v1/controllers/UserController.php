@@ -18,7 +18,7 @@ class UserController extends ApiController
     {
         $behaviors = parent::behaviors();
 
-        $behaviors['authenticator']['only'] = ['index', 'update', 'update'];
+        $behaviors['authenticator']['only'] = ['index', 'update'];
 
         return $behaviors;
     }

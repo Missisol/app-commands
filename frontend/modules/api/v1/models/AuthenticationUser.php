@@ -9,7 +9,6 @@ class AuthenticationUser extends ValidationModel
 {
     public $login;
     public $password;
-    public $rememberMe = true;
 
     private $_user;
 
@@ -21,8 +20,6 @@ class AuthenticationUser extends ValidationModel
         return [
             ['login', 'trim'],
             ['login', 'required', 'message' => 'Логин не может быть пустым.'],
-
-            ['rememberMe', 'boolean'],
 
             ['password', 'required', 'message' => 'Пароль не может быть пустым.'],
             ['password', 'validatePassword'],

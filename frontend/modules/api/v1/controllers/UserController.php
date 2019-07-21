@@ -10,6 +10,7 @@ use frontend\modules\api\v1\models\RecoveryPasswordUser;
 use frontend\modules\api\v1\models\ResetPasswordUser;
 use common\models\User;
 use frontend\modules\api\v1\service\InitBoardUser;
+use frontend\modules\api\v1\models\ChangeDataUser;
 
 class UserController extends ApiController
 {
@@ -17,7 +18,7 @@ class UserController extends ApiController
     {
         $behaviors = parent::behaviors();
 
-        $behaviors['authenticator']['only'] = ['index', 'update'];
+        $behaviors['authenticator']['only'] = ['index', 'update', 'update'];
 
         return $behaviors;
     }
@@ -84,6 +85,18 @@ class UserController extends ApiController
         $model->setAttributes(Yii::$app->request->post());
 
         if ($model->resetPassword()) {
+            return $this->sendResponse(self::STATUS_OK);
+        }
+
+        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
+    }
+
+    public function actionUpdate() {
+        $user = Yii::$app->user->identity;
+        $model = new ChangeDataUser($user);
+        $model->setAttributes(Yii::$app->request->post());
+    
+        if ($model->changeData()) {
             return $this->sendResponse(self::STATUS_OK);
         }
 

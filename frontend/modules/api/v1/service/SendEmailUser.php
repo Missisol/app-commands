@@ -15,8 +15,11 @@ class SendEmailUser
      * @param string $subjectEmail
      * @return bool whether message is sent successfully.
      */
-    public static function sendEmail($viewEmail, $user, $subjectEmail)
+    public static function sendEmail($viewEmail, $user,  $subjectEmail, $email = "")
     {
+        if ($email == "") 
+            $email = $user->email;
+            
         return Yii::$app
             ->mailer
             ->compose(
@@ -24,7 +27,7 @@ class SendEmailUser
                 ['user' => $user]
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($user->email)
+            ->setTo($email)
             ->setSubject($subjectEmail . Yii::$app->name)
             ->send();
     }

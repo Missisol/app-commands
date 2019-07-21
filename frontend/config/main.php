@@ -59,6 +59,7 @@ return [
                         'POST reset-password' => 'reset-password',
                         'PATCH' => 'update',
                         'POST change-password' => 'change-password',
+                        'POST change-email' => 'change-email',
                     ],
                 ]
             ],

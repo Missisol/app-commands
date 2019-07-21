@@ -258,6 +258,16 @@ class User extends ActiveRecord implements IdentityInterface
         $this->access_token = Yii::$app->security->generateRandomString().'_'.time();
     }
 
+    public function generateNewEmailVerificationToken()
+    {
+        $this->verify_new_email_token = Yii::$app->security->generateRandomString().'_'.time();
+    }
+
+    public function removeNewEmailVerificationToken()
+    {
+        $this->verify_new_email_token = null;
+    }
+
     public function fields() {
         if ($this->scenario == self::SCENARIO_PROFILE) {
             return [

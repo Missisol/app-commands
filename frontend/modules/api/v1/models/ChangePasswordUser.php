@@ -34,9 +34,7 @@ class ChangePasswordUser extends ValidationModel
     public function validateOldPassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $newUser = new User();
-            $newUser->setPassword($this->old_password);
-            if (strcasecmp($this->user->password_hash, $newUser->password_hash) == 0) {
+            if (!$this->user->validatePassword($this->old_password)) {
                 $this->addError($attribute, 'Некорректный старый пароль.');
             }
         }

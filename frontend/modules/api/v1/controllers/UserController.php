@@ -11,6 +11,7 @@ use frontend\modules\api\v1\models\ResetPasswordUser;
 use common\models\User;
 use frontend\modules\api\v1\service\InitBoardUser;
 use frontend\modules\api\v1\models\ChangeDataUser;
+use frontend\modules\api\v1\models\ChangePasswordUser;
 
 class UserController extends ApiController
 {
@@ -18,7 +19,7 @@ class UserController extends ApiController
     {
         $behaviors = parent::behaviors();
 
-        $behaviors['authenticator']['only'] = ['index', 'update'];
+        $behaviors['authenticator']['only'] = ['index', 'update', 'change-password'];
 
         return $behaviors;
     }
@@ -91,13 +92,28 @@ class UserController extends ApiController
         return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
     }
 
-    public function actionUpdate() {
+    public function actionUpdate()
+    {
         $user = Yii::$app->user->identity;
         $model = new ChangeDataUser($user);
         $model->setAttributes(Yii::$app->request->post());
-    
+
         if ($model->changeData()) {
             return $this->sendResponse(self::STATUS_OK);
+        }
+
+        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
+    }
+
+    public function actionChangePassword()
+    {
+        $user = Yii::$app->user->identity;
+        $model = new ChangePasswordUser($user);
+        $model->setAttributes(Yii::$app->request->post());
+        
+        if ($model->changePassword()) {
+            $user = Yii::$app->user->identity;
+            return $this->sendResponse(self::STATUS_OK, $user);
         }
 
         return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));

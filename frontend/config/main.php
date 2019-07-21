@@ -57,7 +57,8 @@ return [
                         'POST auth' => 'auth',
                         'POST recovery' => 'recovery',
                         'POST reset-password' => 'reset-password',
-                        'PATCH' => 'update'
+                        'PATCH' => 'update',
+                        'POST change-password' => 'change-password',
                     ],
                 ]
             ],

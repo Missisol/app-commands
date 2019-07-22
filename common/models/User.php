@@ -31,6 +31,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     private const PARAM_EXPIRE_PASSWORD_RESET_TOKEN = 'user.passwordResetTokenExpire';
     private const PARAM_EXPIRE_ACCESS_TOKEN = 'user.accessTokenExpire';
+    private const PARAM_EXPIRE_VERIFY_NEW_EMAIL_TOKEN = 'user.verifyNewEmailTokenExpire';
 
     const SCENARIO_PROFILE = 'profile';
 
@@ -153,6 +154,18 @@ class User extends ActiveRecord implements IdentityInterface
         ]);
     }
 
+    public static function findByVerifyNewEmailToken($token)
+    {
+        if (!static::isVerifyNewEmailTokenValid($token)) {
+            return null;
+        }
+
+        return static::findOne([
+            'verify_new_email_token' => $token,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+
     /**
      * Finds out if password reset token is valid.
      *
@@ -167,6 +180,10 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return self::isTokenValid($token, self::PARAM_EXPIRE_PASSWORD_RESET_TOKEN);
+    }
+
+    private static function isVerifyNewEmailTokenValid($token) {
+        return self::isTokenValid($token, self::PARAM_EXPIRE_VERIFY_NEW_EMAIL_TOKEN);
     }
 
     private static function isTokenValid($token, $paramName)

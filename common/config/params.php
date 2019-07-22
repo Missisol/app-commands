@@ -6,4 +6,5 @@ return [
     'senderName' => 'Example.com mailer',
     'user.passwordResetTokenExpire' => 3600,
     'user.accessTokenExpire' => 3600,
+    'user.verifyNewEmailTokenExpire' => 3600,
 ];

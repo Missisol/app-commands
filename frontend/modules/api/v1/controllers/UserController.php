@@ -13,6 +13,7 @@ use frontend\modules\api\v1\service\InitBoardUser;
 use frontend\modules\api\v1\models\ChangeDataUser;
 use frontend\modules\api\v1\models\ChangePasswordUser;
 use frontend\modules\api\v1\models\ChangeEmailUser;
+use frontend\modules\api\v1\models\VerifyNewEmail;
 
 class UserController extends ApiController
 {
@@ -20,7 +21,12 @@ class UserController extends ApiController
     {
         $behaviors = parent::behaviors();
 
-        $behaviors['authenticator']['only'] = ['index', 'update', 'change-password', 'change-email'];
+        $behaviors['authenticator']['only'] = [
+            'index', 
+            'update', 
+            'change-password', 
+            'change-email'
+        ];
 
         return $behaviors;
     }
@@ -126,6 +132,18 @@ class UserController extends ApiController
         $model->setAttributes(Yii::$app->request->post());
 
         if ($model->changeEmail()) {
+            return $this->sendResponse(self::STATUS_OK);
+        }
+
+        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
+    }
+
+    public function actionVerifyNewEmail() {
+        $model = new VerifyNewEmail();
+
+        $model->setAttributes(Yii::$app->request->post());
+
+        if ($model->verifyNewEmail()) {
             return $this->sendResponse(self::STATUS_OK);
         }
 

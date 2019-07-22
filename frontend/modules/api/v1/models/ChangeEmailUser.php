@@ -9,6 +9,7 @@ class ChangeEmailUser extends ValidationModel
 {
     public $email;
 
+    /**@var User */
     private $user;
 
     private const VIEW_NEW_EMAIL_VERIFICATION = 'newEmailVerify';

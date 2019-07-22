@@ -9,8 +9,12 @@ class ChangePasswordUser extends ValidationModel
     public $old_password;
     public $new_password;
 
+    /*@var User */
     private $user;
 
+    /**
+     * @param User $user
+     */
     public function __construct($user)
     {
         parent::__construct();

@@ -3,30 +3,28 @@
 namespace frontend\modules\api\v1\models\entity;
 
 use Yii;
-use common\models\User;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "board".
+ * This is the model class for table "list".
  *
  * @property int $id
  * @property string $name
- * @property int $id_user
+ * @property int $id_board
  * @property int $created_at
  * @property int $updated_at
  *
- * @property User $user
- * @property ListIssue[] $lists
- * @property TaskTab[] $tasktabs
+ * @property ColumnList[] $columnlists
+ * @property Board $board
  */
-class Board extends \yii\db\ActiveRecord
+class ListUser extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'board';
+        return 'list';
     }
 
     /**
@@ -45,10 +43,10 @@ class Board extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'id_user', 'created_at', 'updated_at'], 'required'],
-            [['id_user', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'id_board', 'created_at', 'updated_at'], 'required'],
+            [['id_board', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
+            [['id_board'], 'exist', 'skipOnError' => true, 'targetClass' => Board::class, 'targetAttribute' => ['id_board' => 'id']],
         ];
     }
 
@@ -60,7 +58,7 @@ class Board extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'id_user' => 'Id User',
+            'id_board' => 'Id Board',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -69,25 +67,17 @@ class Board extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getColumnlists()
     {
-        return $this->hasOne(User::class, ['id' => 'id_user']);
+        return $this->hasMany(ColumnList::class, ['id_list' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLists()
+    public function getBoard()
     {
-        return $this->hasMany(ListUser::class, ['id_board' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTasktabs()
-    {
-        return $this->hasMany(TaskTab::class, ['id_board' => 'id']);
+        return $this->hasOne(Board::class, ['id' => 'id_board']);
     }
 
     public function fields()

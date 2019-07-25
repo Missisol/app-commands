@@ -13,8 +13,12 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'vue/build/app.css'
     ];
     public $js = [
+        'vue/build/manifest.js',
+        'vue/build/vendor.js',
+        'vue/build/app.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

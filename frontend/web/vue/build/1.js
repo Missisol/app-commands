@@ -1,0 +1,2 @@
+webpackJsonp([1],{jyJz:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("h1",[this._v("Профиль пользователя")])},staticRenderFns:[]};var a=n("VU/8")({name:"User"},r,!1,function(e){n("qa1z")},"data-v-56c0de51",null);t.default=a.exports},qa1z:function(e,t){}});
+//# sourceMappingURL=1.js.map

@@ -46,6 +46,28 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'api/v1' => 'v1',
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/user'],
+                    'pluralize' => false,
+                    'prefix' => 'api/',
+                    'extraPatterns' => [
+                        'POST verify-email' => 'verify-email',
+                        'POST auth' => 'auth',
+                        'POST recovery' => 'recovery',
+                        'POST reset-password' => 'reset-password',
+                        'PATCH' => 'update',
+                        'POST change-password' => 'change-password',
+                        'POST change-email' => 'change-email',
+                        'POST verify-new-email' => 'verify-new-email',
+                    ],
+                ], [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/board'],
+                    'pluralize' => false,
+                    'prefix' => 'api/'
+                ]
             ],
         ],
     ],

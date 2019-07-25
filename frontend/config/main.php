@@ -72,6 +72,11 @@ return [
                     'controller' => ['v1/task-tab'],
                     'pluralize' => false,
                     'prefix' => 'api/'
+                ], [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/list'],
+                    'pluralize' => false,
+                    'prefix' => 'api/'
                 ]
             ],
         ],

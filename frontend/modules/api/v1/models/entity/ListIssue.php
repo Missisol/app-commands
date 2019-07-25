@@ -79,4 +79,12 @@ class ListIssue extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ColumnList::class, ['id' => 'id_columnList']);
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'name'
+        ];
+    }
 }

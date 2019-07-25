@@ -27,7 +27,7 @@ abstract class ApiController extends Controller
     protected function sendResponse($status, $info = '')
     {
         if ($status == self::STATUS_OK) {
-            return $info == '' ? [
+            return $info === '' ? [
                 'status' => $status
             ] : [
                 'status' => $status,

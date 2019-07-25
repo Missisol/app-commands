@@ -2,9 +2,9 @@
 
 namespace frontend\modules\api\v1\models;
 
-use frontend\modules\api\v1\models\entity\Column;
+use frontend\modules\api\v1\models\entity\ColumnList;
 
-class GetInfoByTaskTab
+class GetInfoByListUser
 {
     private $id;
 
@@ -18,13 +18,13 @@ class GetInfoByTaskTab
 
     public function getInfo()
     {
-        $columns = Column::findAll([
-            'id_taskTab' => $this->id,
+        $columns = ColumnList::findAll([
+            'id_list' => $this->id,
         ]);
 
 
         return [
-            'columns' => $columns
+            'columnLists' => $columns
         ];
     }
 }

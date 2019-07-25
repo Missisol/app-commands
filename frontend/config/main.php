@@ -62,6 +62,11 @@ return [
                         'POST change-email' => 'change-email',
                         'POST verify-new-email' => 'verify-new-email',
                     ],
+                ], [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/board'],
+                    'pluralize' => false,
+                    'prefix' => 'api/'
                 ]
             ],
         ],

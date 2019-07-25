@@ -1,3 +1,3 @@
 <?php
 
-echo include($_SERVER['DOCUMENT_ROOT'].'/frontend/web/vue/index.html');
+echo include(Yii::getAlias('@webroot').'/vue/index.html');

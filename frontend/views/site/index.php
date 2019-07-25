@@ -1,2 +1,2 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/frontend/web/vue/index.html');
+include(Yii::getAlias('@webroot').'/vue/index.html');

@@ -69,7 +69,7 @@ return [
                     'pluralize' => false,
                     'prefix' => 'api/'
                 ],
-                '\w+' => '',
+                '\w+|\W+' => '',
             ],
         ],
     ],

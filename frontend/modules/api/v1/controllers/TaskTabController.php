@@ -2,7 +2,9 @@
 
 namespace frontend\modules\api\v1\controllers;
 
+use Yii;
 use frontend\modules\api\v1\models\GetInfoByTaskTab;
+use frontend\modules\api\v1\models\CreateNewTaskTab;
 
 class TaskTabController extends ApiController
 {
@@ -10,5 +12,17 @@ class TaskTabController extends ApiController
     {
         $result = (new GetInfoByTaskTab($id))->getInfo();
         return $this->sendResponse(self::STATUS_OK, $result);
+    }
+
+    public function actionCreate()
+    {
+        $model = new CreateNewTaskTab();
+        $model->setAttributes(Yii::$app->request->post());
+
+        if ($model->create()) {
+            return $this->sendResponse(self::STATUS_OK);
+        }
+
+        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
     }
 }

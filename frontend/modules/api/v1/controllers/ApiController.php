@@ -41,4 +41,11 @@ abstract class ApiController extends Controller
                 'message' => $info
             ];
     }
+
+    protected function getMessage($model)
+    {
+        $errorValidation = $model->getErrorMessage();
+
+        return $errorValidation ? $errorValidation : self::MESSAGE_ERROR_SERVER;
+    }
 }

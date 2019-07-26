@@ -149,11 +149,4 @@ class UserController extends ApiController
 
         return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
     }
-
-    private function getMessage($model)
-    {
-        $errorValidation = $model->getErrorMessage();
-
-        return $errorValidation ? $errorValidation : self::MESSAGE_ERROR_SERVER;
-    }
 }

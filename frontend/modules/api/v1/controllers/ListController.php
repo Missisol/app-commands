@@ -2,7 +2,7 @@
 
 namespace frontend\modules\api\v1\controllers;
 
-use frontend\modules\api\v1\models\GetInfoByListUser;
+use frontend\modules\api\v1\models\listUser\GetInfoByListUser;
 
 class ListController extends ApiController
 {

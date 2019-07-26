@@ -1,9 +1,10 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
 use frontend\modules\api\v1\service\SendEmailUser;
+use frontend\modules\api\v1\models\ValidationModel;
 
 class RecoveryPasswordUser extends ValidationModel
 {

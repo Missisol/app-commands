@@ -3,8 +3,8 @@
 namespace frontend\modules\api\v1\controllers;
 
 use Yii;
-use frontend\modules\api\v1\models\GetInfoByBoard;
-use frontend\modules\api\v1\models\CreateNewBoard;
+use frontend\modules\api\v1\models\board\GetInfoByBoard;
+use frontend\modules\api\v1\models\board\CreateNewBoard;
 
 class BoardController extends ApiController
 {

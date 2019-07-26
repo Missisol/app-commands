@@ -3,7 +3,7 @@
 namespace frontend\modules\api\v1\controllers;
 
 use Yii;
-use frontend\modules\api\v1\models\CreateNewTask;
+use frontend\modules\api\v1\models\task\CreateNewTask;
 
 class TaskController extends ApiController
 {

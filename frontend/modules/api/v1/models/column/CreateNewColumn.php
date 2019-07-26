@@ -1,7 +1,8 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\column;
 
+use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\TaskTab;
 use frontend\modules\api\v1\models\entity\Column;
 

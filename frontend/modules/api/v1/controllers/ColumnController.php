@@ -3,7 +3,7 @@
 namespace frontend\modules\api\v1\controllers;
 
 use Yii;
-use frontend\modules\api\v1\models\CreateNewColumn;
+use frontend\modules\api\v1\models\column\CreateNewColumn;
 
 class ColumnController extends ApiController
 {

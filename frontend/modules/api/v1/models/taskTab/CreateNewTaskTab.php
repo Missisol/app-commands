@@ -1,9 +1,10 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\taskTab;
 
 use frontend\modules\api\v1\models\entity\TaskTab;
 use frontend\modules\api\v1\models\entity\Board;
+use frontend\modules\api\v1\models\ValidationModel;
 
 class CreateNewTaskTab extends ValidationModel
 {

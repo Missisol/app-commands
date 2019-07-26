@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\listUser;
 
 use frontend\modules\api\v1\models\entity\ColumnList;
 

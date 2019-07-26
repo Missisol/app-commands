@@ -3,8 +3,8 @@
 namespace frontend\modules\api\v1\controllers;
 
 use Yii;
-use frontend\modules\api\v1\models\GetInfoByTaskTab;
-use frontend\modules\api\v1\models\CreateNewTaskTab;
+use frontend\modules\api\v1\models\taskTab\GetInfoByTaskTab;
+use frontend\modules\api\v1\models\taskTab\CreateNewTaskTab;
 
 class TaskTabController extends ApiController
 {

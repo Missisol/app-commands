@@ -1,8 +1,9 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\task;
 
 use frontend\modules\api\v1\models\entity\Task;
+use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\Column;
 
 class CreateNewTask extends ValidationModel

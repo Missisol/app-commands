@@ -1,9 +1,10 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\user;
 
 use Yii;
 use common\models\User;
+use frontend\modules\api\v1\models\ValidationModel;
 
 class AuthenticationUser extends ValidationModel
 {

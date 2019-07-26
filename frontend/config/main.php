@@ -64,17 +64,12 @@ return [
                     ],
                 ], [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/board'],
-                    'pluralize' => false,
-                    'prefix' => 'api/'
-                ], [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/task-tab'],
-                    'pluralize' => false,
-                    'prefix' => 'api/'
-                ], [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/list'],
+                    'controller' => [
+                        'v1/board', 
+                        'v1/task-tab', 
+                        'v1/list', 
+                        'v1/column'
+                    ],
                     'pluralize' => false,
                     'prefix' => 'api/'
                 ]

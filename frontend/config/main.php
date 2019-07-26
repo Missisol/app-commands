@@ -68,7 +68,8 @@ return [
                         'v1/board', 
                         'v1/task-tab', 
                         'v1/list', 
-                        'v1/column'
+                        'v1/column',
+                        'v1/task'
                     ],
                     'pluralize' => false,
                     'prefix' => 'api/'

@@ -3,12 +3,17 @@
 namespace frontend\modules\api\v1\controllers;
 
 use frontend\modules\api\v1\models\listUser\GetInfoByListUser;
+use frontend\modules\api\v1\models\listUser\CreateNewListUser;
 
 class ListController extends ApiController
 {
     public function actionIndex($id)
     {
-        $result = (new GetInfoByListUser($id))->getInfo();
-        return $this->sendResponse(self::STATUS_OK, $result);
+        return $this->getInfoByEntity(new GetInfoByListUser($id));
+    }
+
+    public function actionCreate()
+    {
+        return $this->createEntity(new CreateNewListUser());
     }
 }

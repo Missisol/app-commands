@@ -182,7 +182,8 @@ class User extends ActiveRecord implements IdentityInterface
         return self::isTokenValid($token, self::PARAM_EXPIRE_PASSWORD_RESET_TOKEN);
     }
 
-    private static function isVerifyNewEmailTokenValid($token) {
+    private static function isVerifyNewEmailTokenValid($token)
+    {
         return self::isTokenValid($token, self::PARAM_EXPIRE_VERIFY_NEW_EMAIL_TOKEN);
     }
 
@@ -254,12 +255,12 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString().'_'.time();
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     public function generateEmailVerificationToken()
     {
-        $this->verification_token = Yii::$app->security->generateRandomString().'_'.time();
+        $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -272,12 +273,12 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function generateAccessToken()
     {
-        $this->access_token = Yii::$app->security->generateRandomString().'_'.time();
+        $this->access_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     public function generateNewEmailVerificationToken()
     {
-        $this->verify_new_email_token = Yii::$app->security->generateRandomString().'_'.time();
+        $this->verify_new_email_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     public function removeNewEmailVerificationToken()
@@ -285,12 +286,13 @@ class User extends ActiveRecord implements IdentityInterface
         $this->verify_new_email_token = null;
     }
 
-    public function fields() {
+    public function fields()
+    {
         if ($this->scenario == self::SCENARIO_PROFILE) {
             return [
                 'login',
                 'password' => function () {
-                    return str_repeat ('*', $this->length_password);
+                    return str_repeat('*', $this->length_password);
                 },
                 'email'
             ];

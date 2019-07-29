@@ -3,14 +3,20 @@
 namespace frontend\modules\api\v1\controllers;
 
 use Yii;
-use frontend\modules\api\v1\models\InitViewBoard;
+use frontend\modules\api\v1\models\board\GetInfoByBoard;
+use frontend\modules\api\v1\models\board\CreateNewBoard;
 
 class BoardController extends ApiController
 {
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
         $user_id = Yii::$app->user->identity->getId();
-        $result = (new InitViewBoard($user_id))->initView();
-        return $this->sendResponse(self::STATUS_OK, $result);
+        return $this->getInfoByEntity(new GetInfoByBoard($user_id, $id));
+    }
+
+    public function actionCreate()
+    {
+        $user_id = Yii::$app->user->identity->getId();
+        return $this->createEntity(new CreateNewBoard($user_id));
     }
 }

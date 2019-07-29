@@ -3,17 +3,17 @@
 namespace frontend\modules\api\v1\controllers;
 
 use Yii;
-use frontend\modules\api\v1\models\RegistrationUser;
-use frontend\modules\api\v1\models\VerifyEmail;
-use frontend\modules\api\v1\models\AuthenticationUser;
-use frontend\modules\api\v1\models\RecoveryPasswordUser;
-use frontend\modules\api\v1\models\ResetPasswordUser;
+use frontend\modules\api\v1\models\user\RegistrationUser;
+use frontend\modules\api\v1\models\user\VerifyEmail;
+use frontend\modules\api\v1\models\user\AuthenticationUser;
+use frontend\modules\api\v1\models\user\RecoveryPasswordUser;
+use frontend\modules\api\v1\models\user\ResetPasswordUser;
 use common\models\User;
 use frontend\modules\api\v1\service\InitBoardUser;
-use frontend\modules\api\v1\models\ChangeDataUser;
-use frontend\modules\api\v1\models\ChangePasswordUser;
-use frontend\modules\api\v1\models\ChangeEmailUser;
-use frontend\modules\api\v1\models\VerifyNewEmail;
+use frontend\modules\api\v1\models\user\ChangeDataUser;
+use frontend\modules\api\v1\models\user\ChangePasswordUser;
+use frontend\modules\api\v1\models\user\ChangeEmailUser;
+use frontend\modules\api\v1\models\user\VerifyNewEmail;
 
 class UserController extends ApiController
 {
@@ -148,12 +148,5 @@ class UserController extends ApiController
         }
 
         return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
-    }
-
-    private function getMessage($model)
-    {
-        $errorValidation = $model->getErrorMessage();
-
-        return $errorValidation ? $errorValidation : self::MESSAGE_ERROR_SERVER;
     }
 }

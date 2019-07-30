@@ -3,8 +3,9 @@
 namespace frontend\modules\api\v1\models\taskTab;
 
 use frontend\modules\api\v1\models\entity\Column;
+use frontend\modules\api\v1\models\GetInfoByEntity;
 
-class GetInfoByTaskTab
+class GetInfoByTaskTab implements GetInfoByEntity
 {
     private $id;
 

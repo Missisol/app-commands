@@ -72,4 +72,13 @@ class Issue extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ListIssue::class, ['id' => 'id_listIssue']);
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'description',
+            'execution'
+        ];
+    }
 }

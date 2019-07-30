@@ -73,6 +73,7 @@ return [
                         'v1/task',
                         'v1/column-list',
                         'v1/list-issue',
+                        'v1/issue',
                     ],
                     'pluralize' => false,
                     'prefix' => 'api/'

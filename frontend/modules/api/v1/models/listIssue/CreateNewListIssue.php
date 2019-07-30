@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\listIssue;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\ListIssue;
 use frontend\modules\api\v1\models\entity\ColumnList;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewListIssue extends ValidationModel
+class CreateNewListIssue extends ValidationModel implements CreateNewEntity
 {
     public $name;
     public $id_columnList;

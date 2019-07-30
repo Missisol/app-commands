@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\board;
 use frontend\modules\api\v1\models\entity\Board;
 use frontend\modules\api\v1\models\entity\TaskTab;
 use frontend\modules\api\v1\models\entity\ListUser;
+use frontend\modules\api\v1\models\GetInfoByEntity;
 
-class GetInfoByBoard
+class GetInfoByBoard implements GetInfoByEntity
 {
     private $user_id;
     private $id;

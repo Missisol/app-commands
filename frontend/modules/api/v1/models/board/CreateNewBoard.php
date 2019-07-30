@@ -4,8 +4,9 @@ namespace frontend\modules\api\v1\models\board;
 
 use frontend\modules\api\v1\models\entity\Board;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewBoard extends ValidationModel
+class CreateNewBoard extends ValidationModel implements CreateNewEntity
 {
     public $name;
 

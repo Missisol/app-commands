@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\listUser;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\ListUser;
 use frontend\modules\api\v1\models\entity\Board;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewListUser extends ValidationModel
+class CreateNewListUser extends ValidationModel implements CreateNewEntity
 {
     public $name;
     public $id_board;

@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\columnList;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\ColumnList;
 use frontend\modules\api\v1\models\entity\ListUser;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewColumnList extends ValidationModel
+class CreateNewColumnList extends ValidationModel implements CreateNewEntity
 {
     public $name;
     public $id_list;

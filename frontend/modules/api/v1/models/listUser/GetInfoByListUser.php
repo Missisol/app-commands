@@ -3,8 +3,9 @@
 namespace frontend\modules\api\v1\models\listUser;
 
 use frontend\modules\api\v1\models\entity\ColumnList;
+use frontend\modules\api\v1\models\GetInfoByEntity;
 
-class GetInfoByListUser
+class GetInfoByListUser implements GetInfoByEntity
 {
     private $id;
 

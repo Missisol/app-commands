@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\taskTab;
 use frontend\modules\api\v1\models\entity\TaskTab;
 use frontend\modules\api\v1\models\entity\Board;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewTaskTab extends ValidationModel
+class CreateNewTaskTab extends ValidationModel implements CreateNewEntity
 {
     public $name;
     public $id_board;

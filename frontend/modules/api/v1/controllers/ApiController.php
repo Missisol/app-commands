@@ -72,8 +72,17 @@ abstract class ApiController extends Controller
     /**
      * @param GetInfoByEntity $model
      */
-    protected function getInfoByEntity($model) {
-        $result = $model->getInfo();
-        return $this->sendResponse(self::STATUS_OK, $result);
+    protected function getInfoByEntity($model, $useGetParam = false) {
+        /*$result = $model->getInfo();
+        return $this->sendResponse(self::STATUS_OK, $result);*/
+
+        $useGetParam ? $model->setAttributes(Yii::$app->request->get()) : 
+            $model->setAttributes(Yii::$app->request->post());
+
+        if ($result = $model->getInfo()) {
+            return $this->sendResponse(self::STATUS_OK, $result);
+        }
+
+        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
     }
 }

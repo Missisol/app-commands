@@ -65,9 +65,26 @@ return [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/board'],
+                    'controller' => [
+                        'v1/board', 
+                        'v1/task-tab', 
+                        'v1/list', 
+                        'v1/column',
+                        'v1/task',
+                        'v1/column-list',
+                        'v1/list-issue',
+                    ],
                     'pluralize' => false,
                     'prefix' => 'api/'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/issue',],
+                    'pluralize' => false,
+                    'prefix' => 'api/',
+                    'extraPatterns' => [
+                        'PATCH' => 'update',
+                    ],
                 ],
                 '\w+|\W+' => '',
             ],

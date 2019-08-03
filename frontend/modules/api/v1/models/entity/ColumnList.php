@@ -79,4 +79,13 @@ class ColumnList extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ListIssue::class, ['id_columnList' => 'id']);
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'name',
+            'listIssues' => 'listissues'
+        ];
+    }
 }

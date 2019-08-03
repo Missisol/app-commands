@@ -72,4 +72,13 @@ class Task extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Column::class, ['id' => 'id_column']);
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'name',
+            'description'
+        ];
+    }
 }

@@ -19,6 +19,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Issue extends \yii\db\ActiveRecord
 {
+    const NO_EXECUTION = 0;
+    const EXECUTION = 1;
+
     /**
      * {@inheritdoc}
      */
@@ -47,6 +50,9 @@ class Issue extends \yii\db\ActiveRecord
             [['execution', 'id_listIssue', 'created_at', 'updated_at'], 'integer'],
             [['description'], 'string', 'max' => 255],
             [['id_listIssue'], 'exist', 'skipOnError' => true, 'targetClass' => ListIssue::class, 'targetAttribute' => ['id_listIssue' => 'id']],
+
+            ['execution', 'default', 'value' => self::NO_EXECUTION],
+            ['execution', 'in', 'range' => [self::NO_EXECUTION, self::EXECUTION]],
         ];
     }
 
@@ -71,5 +77,14 @@ class Issue extends \yii\db\ActiveRecord
     public function getListIssue()
     {
         return $this->hasOne(ListIssue::class, ['id' => 'id_listIssue']);
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'description',
+            'execution'
+        ];
     }
 }

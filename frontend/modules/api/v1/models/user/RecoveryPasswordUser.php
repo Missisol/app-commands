@@ -1,11 +1,13 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
 use frontend\modules\api\v1\service\SendEmailUser;
+use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class RecoveryPasswordUser extends ValidationModel
+class RecoveryPasswordUser extends ValidationModel implements ActionByEntity
 {
     public $email;
 
@@ -43,7 +45,7 @@ class RecoveryPasswordUser extends ValidationModel
         }
     }
 
-    public function recoveryPassword()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

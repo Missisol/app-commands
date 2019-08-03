@@ -1,10 +1,12 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
+use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class ChangePasswordUser extends ValidationModel
+class ChangePasswordUser extends ValidationModel implements ActionByEntity
 {
     public $old_password;
     public $new_password;
@@ -44,7 +46,7 @@ class ChangePasswordUser extends ValidationModel
         }
     }
 
-    public function changePassword()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

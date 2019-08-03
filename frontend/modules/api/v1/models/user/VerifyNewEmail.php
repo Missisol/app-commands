@@ -1,12 +1,13 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
+use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class ResetPasswordUser extends ValidationModel
+class VerifyNewEmail extends ValidationModel implements ActionByEntity
 {
-    public $password;
     public $token;
 
     /**
@@ -20,9 +21,6 @@ class ResetPasswordUser extends ValidationModel
     public function rules()
     {
         return [
-            ['password', 'required', 'message' => 'Пароль не может быть пустым.'],
-            ['password', 'string', 'min' => 6, 'tooShort' => 'Пароль должен содержать как минимум 6 символов.'],
-
             ['token', 'required', 'message' => 'Токен не может быть пустым.'],
             ['token', 'validateToken'],
         ];
@@ -31,23 +29,23 @@ class ResetPasswordUser extends ValidationModel
     public function validateToken($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $this->_user = User::findByPasswordResetToken($this->token);
+            $this->_user = User::findByVerifyNewEmailToken($this->token);
             if (!$this->_user) {
                 $this->addError($attribute, 'Неверный токен.');
             }
         }
     }
 
-    public function resetPassword()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;
         }
 
         $user = $this->_user;
-        $user->setPassword($this->password);
-        $user->removePasswordResetToken();
-
+        $user->email = $user->new_email;
+        $user->new_email = null;
+        $user->verify_new_email_token = null;
         return $user->save(false);
     }
 }

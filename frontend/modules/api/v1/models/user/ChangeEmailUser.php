@@ -1,11 +1,13 @@
 <?php
 
-namespace frontend\modules\api\v1\models;
+namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
 use frontend\modules\api\v1\service\SendEmailUser;
+use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class ChangeEmailUser extends ValidationModel
+class ChangeEmailUser extends ValidationModel implements ActionByEntity
 {
     public $email;
 
@@ -35,7 +37,7 @@ class ChangeEmailUser extends ValidationModel
         ];
     }
 
-    public function changeEmail()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

@@ -5,9 +5,9 @@ namespace frontend\modules\api\v1\controllers;
 use Yii;
 use yii\rest\Controller;
 use yii\filters\auth\HttpBearerAuth;
-use frontend\modules\api\v1\models\CreateNewEntity;
 use frontend\modules\api\v1\models\GetInfoByEntity;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
 abstract class ApiController extends Controller
 {
@@ -57,30 +57,26 @@ abstract class ApiController extends Controller
     }
 
     /**
-     * @param CreateNewEntity $model
+     * @param GetInfoByEntity $model
      */
-    protected function createEntity($model) {
-        $model->setAttributes(Yii::$app->request->post());
+    protected function getInfoByEntity($model) {
+        $model->setAttributes(Yii::$app->request->get());
 
-        if ($model->create()) {
-            return $this->sendResponse(self::STATUS_OK);
+        if ($result = $model->getInfo()) {
+            return $this->sendResponse(self::STATUS_OK, $result);
         }
 
         return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
     }
 
     /**
-     * @param GetInfoByEntity $model
+     * @param ActionByEntity $model
      */
-    protected function getInfoByEntity($model, $useGetParam = false) {
-        /*$result = $model->getInfo();
-        return $this->sendResponse(self::STATUS_OK, $result);*/
+    protected function doActionByEntity($model) {
+        $model->setAttributes(Yii::$app->request->post());
 
-        $useGetParam ? $model->setAttributes(Yii::$app->request->get()) : 
-            $model->setAttributes(Yii::$app->request->post());
-
-        if ($result = $model->getInfo()) {
-            return $this->sendResponse(self::STATUS_OK, $result);
+        if ($model->doAction()) {
+            return $this->sendResponse(self::STATUS_OK);
         }
 
         return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));

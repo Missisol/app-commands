@@ -5,9 +5,9 @@ namespace frontend\modules\api\v1\models\taskTab;
 use frontend\modules\api\v1\models\entity\TaskTab;
 use frontend\modules\api\v1\models\entity\Board;
 use frontend\modules\api\v1\models\ValidationModel;
-use frontend\modules\api\v1\models\CreateNewEntity;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class CreateNewTaskTab extends ValidationModel implements CreateNewEntity
+class CreateNewTaskTab extends ValidationModel implements ActionByEntity
 {
     public $name;
     public $id_board;
@@ -24,11 +24,11 @@ class CreateNewTaskTab extends ValidationModel implements CreateNewEntity
 
             ['id_board', 'required', 'message' => 'id_board не может быть пустым.'],
             ['id_board', 'integer'],
-            [['id_board'], 'exist', 'skipOnError' => true, 'targetClass' => Board::class, 'targetAttribute' => ['id_board' => 'id'], 'message' => 'Доски с данным id_board не существует']
+            [['id_board'], 'exist', 'skipOnError' => true, 'targetClass' => Board::class, 'targetAttribute' => ['id_board' => 'id'], 'message' => 'Доски с данным id_board не существует'],
         ];
     }
 
-    public function create()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;
@@ -36,7 +36,7 @@ class CreateNewTaskTab extends ValidationModel implements CreateNewEntity
 
         $taskTab = new TaskTab([
             'name' => $this->name,
-            'id_board' => $this->id_board
+            'id_board' => $this->id_board,
         ]);
 
         return $taskTab->save(false);

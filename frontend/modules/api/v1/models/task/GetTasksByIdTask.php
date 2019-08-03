@@ -16,19 +16,16 @@ class GetTasksByIdTask extends ValidationModel implements GetInfoByEntity
             ['id', 'required', 'message' => 'id не может быть пустым.'],
             ['id', 'integer'],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class,
-                 'message' => 'Задачи с данным id не существует'],
+                 'message' => 'Задачи с данным id не существует', ],
         ];
     }
 
-    public function getInfo() {
+    public function getInfo()
+    {
         if (!$this->validate()) {
             return false;
         }
 
         return Task::findOne($this->id);
-
-        /*return [
-            $issue
-        ];*/
     }
 }

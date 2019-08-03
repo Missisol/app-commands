@@ -2,18 +2,18 @@
 
 namespace frontend\modules\api\v1\controllers;
 
-use frontend\modules\api\v1\models\listUser\GetInfoByListUser;
+use frontend\modules\api\v1\models\listUser\GetColumnListsByIdListUser;
 use frontend\modules\api\v1\models\listUser\CreateNewListUser;
 
 class ListController extends ApiController
 {
-    public function actionIndex($id)
+    public function actionIndex()
     {
-        return $this->getInfoByEntity(new GetInfoByListUser($id));
+        return $this->getInfoByEntity(new GetColumnListsByIdListUser(), true);
     }
 
     public function actionCreate()
     {
-        return $this->createEntity(new CreateNewListUser());
+        return $this->doActionByEntity(new CreateNewListUser());
     }
 }

@@ -8,6 +8,6 @@ class ListIssueController extends ApiController
 {
     public function actionCreate()
     {
-        return $this->createEntity(new CreateNewListIssue());
+        return $this->doActionByEntity(new CreateNewListIssue());
     }
 }

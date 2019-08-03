@@ -4,8 +4,9 @@ namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class VerifyNewEmail extends ValidationModel
+class VerifyNewEmail extends ValidationModel implements ActionByEntity
 {
     public $token;
 
@@ -35,7 +36,7 @@ class VerifyNewEmail extends ValidationModel
         }
     }
 
-    public function verifyNewEmail()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

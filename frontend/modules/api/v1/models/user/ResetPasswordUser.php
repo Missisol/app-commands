@@ -4,8 +4,9 @@ namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class ResetPasswordUser extends ValidationModel
+class ResetPasswordUser extends ValidationModel implements ActionByEntity
 {
     public $password;
     public $token;
@@ -39,7 +40,7 @@ class ResetPasswordUser extends ValidationModel
         }
     }
 
-    public function resetPassword()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

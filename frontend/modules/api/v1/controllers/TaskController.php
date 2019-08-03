@@ -9,10 +9,11 @@ class TaskController extends ApiController
 {
     public function actionCreate()
     {
-        return $this->createEntity(new CreateNewTask());
+        return $this->doActionByEntity(new CreateNewTask());
     }
 
-    public function actionIndex() {
+    public function actionIndex()
+    {
         return $this->getInfoByEntity(new GetTasksByIdTask(), true);
     }
 }

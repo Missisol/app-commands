@@ -6,24 +6,39 @@ use frontend\modules\api\v1\models\entity\Board;
 use frontend\modules\api\v1\models\entity\TaskTab;
 use frontend\modules\api\v1\models\entity\ListUser;
 use frontend\modules\api\v1\models\GetInfoByEntity;
+use frontend\modules\api\v1\models\ValidationModel;
 
-class GetInfoByBoard implements GetInfoByEntity
+class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
 {
     private $user_id;
-    private $id;
+
+    public $id;
 
     /**
      * @param integer $user_id
      */
-    public function __construct($user_id, $id)
+    public function __construct($user_id)
     {
         $this->user_id = $user_id;
-        $this->id = $id;
+    }
+
+    public function rules()
+    {
+        return [
+            ['id', 'default', 'value' => null],
+            ['id', 'integer'],
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Board::class,
+                 'message' => 'Доски пользователя с данным id не существует', ],
+        ];
     }
 
     public function getInfo()
     {
-        return $this->id === null ? $this->getInitInfo() : $this->getInfoByOneBoard($this->id);
+        if (!$this->validate()) {
+            return false;
+        }
+
+        return $this->id ? $this->getInfoByOneBoard($this->id) : $this->getInitInfo();
     }
 
     private function getInitInfo()
@@ -33,7 +48,7 @@ class GetInfoByBoard implements GetInfoByEntity
         ]);
 
 
-        if (count($boards) >= 1) {
+        if (count($boards) > 0) {
             $idBoard = $boards[0]->id;
 
             return array_merge(
@@ -44,11 +59,12 @@ class GetInfoByBoard implements GetInfoByEntity
             );
         }
 
-        return [
-            'boards' => $boards,
-            'taskTabs' => [],
-            'lists' => []
-        ];
+        return array_merge(
+            [
+                'boards' => $boards
+            ],
+            $this->getInfoByOneBoardInArray()
+        );
     }
 
     private function getInfoByOneBoard($idBoard)
@@ -61,6 +77,10 @@ class GetInfoByBoard implements GetInfoByEntity
             'id_board' => $idBoard,
         ]);
 
+        return $this->getInfoByOneBoardInArray($taskTabs, $lists);
+    }
+
+    private function getInfoByOneBoardInArray($taskTabs = [], $lists = []) {
         return [
             'taskTabs' => $taskTabs,
             'lists' => $lists

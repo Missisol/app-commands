@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\issue;
 use frontend\modules\api\v1\models\entity\ListIssue;
 use frontend\modules\api\v1\models\entity\Issue;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\GetInfoByEntity;
 
-class GetIssuesByIdListIssue extends ValidationModel
+class GetIssuesByIdListIssue extends ValidationModel implements GetInfoByEntity
 {
     public $id_listIssue;
 
@@ -19,7 +20,7 @@ class GetIssuesByIdListIssue extends ValidationModel
         ];
     }
 
-    public function getIssues()
+    public function getInfo()
     {
         if (!$this->validate()) {
             return false;

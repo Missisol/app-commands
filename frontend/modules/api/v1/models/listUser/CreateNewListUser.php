@@ -5,9 +5,9 @@ namespace frontend\modules\api\v1\models\listUser;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\ListUser;
 use frontend\modules\api\v1\models\entity\Board;
-use frontend\modules\api\v1\models\CreateNewEntity;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class CreateNewListUser extends ValidationModel implements CreateNewEntity
+class CreateNewListUser extends ValidationModel implements ActionByEntity
 {
     public $name;
     public $id_board;
@@ -29,7 +29,7 @@ class CreateNewListUser extends ValidationModel implements CreateNewEntity
         ];
     }
 
-    public function create()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

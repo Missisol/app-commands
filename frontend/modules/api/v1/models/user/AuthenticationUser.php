@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\user;
 use Yii;
 use common\models\User;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class AuthenticationUser extends ValidationModel
+class AuthenticationUser extends ValidationModel implements ActionByEntity
 {
     public $login;
     public $password;
@@ -37,7 +38,7 @@ class AuthenticationUser extends ValidationModel
         }
     }
 
-    public function login()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

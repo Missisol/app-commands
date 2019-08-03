@@ -4,8 +4,10 @@ namespace frontend\modules\api\v1\models\user;
 
 use common\models\User;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\service\InitBoardUser;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class VerifyEmail extends ValidationModel
+class VerifyEmail extends ValidationModel implements ActionByEntity
 {
     public $token;
 
@@ -35,7 +37,7 @@ class VerifyEmail extends ValidationModel
         }
     }
 
-    public function verifyEmail()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;
@@ -43,6 +45,12 @@ class VerifyEmail extends ValidationModel
 
         $user = $this->_user;
         $user->status = User::STATUS_ACTIVE;
-        return $user->save(false) ? $user : null;
+
+        //return $user->save(false) ? $user : null;
+        if (!$user->save(false)) {
+            return null;
+        }
+
+        return InitBoardUser::initBoard($user);
     }
 }

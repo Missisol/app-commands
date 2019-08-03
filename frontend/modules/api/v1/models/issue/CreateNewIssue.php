@@ -3,11 +3,11 @@
 namespace frontend\modules\api\v1\models\issue;
 
 use frontend\modules\api\v1\models\ValidationModel;
-use frontend\modules\api\v1\models\CreateNewEntity;
 use frontend\modules\api\v1\models\entity\ListIssue;
 use frontend\modules\api\v1\models\entity\Issue;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class CreateNewIssue extends ValidationModel implements CreateNewEntity
+class CreateNewIssue extends ValidationModel implements ActionByEntity
 {
     public $description;
     public $id_listIssue;
@@ -28,7 +28,7 @@ class CreateNewIssue extends ValidationModel implements CreateNewEntity
         ];
     }
 
-    public function create()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

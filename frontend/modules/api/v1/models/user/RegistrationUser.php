@@ -5,8 +5,9 @@ namespace frontend\modules\api\v1\models\user;
 use common\models\User;
 use frontend\modules\api\v1\service\SendEmailUser;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class RegistrationUser extends ValidationModel
+class RegistrationUser extends ValidationModel implements ActionByEntity
 {
     public $login;
     public $email;
@@ -37,7 +38,7 @@ class RegistrationUser extends ValidationModel
         ];
     }
 
-    public function signup()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

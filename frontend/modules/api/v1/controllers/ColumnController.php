@@ -8,6 +8,6 @@ class ColumnController extends ApiController
 {
     public function actionCreate()
     {
-        return $this->createEntity(new CreateNewColumn());
+        return $this->doActionByEntity(new CreateNewColumn());
     }
 }

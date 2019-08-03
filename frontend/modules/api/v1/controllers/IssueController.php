@@ -11,19 +11,12 @@ class IssueController extends ApiController
 {
     public function actionIndex()
     {
-        $model = new GetIssuesByIdListIssue();
-        $model->setAttributes(Yii::$app->request->get());
-
-        if ($result = $model->getIssues()) {
-            return $this->sendResponse(self::STATUS_OK, $result);
-        }
-        
-        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
+        return $this->getInfoByEntity(new GetIssuesByIdListIssue(), true);
     }
 
     public function actionCreate()
     {
-        return $this->createEntity(new CreateNewIssue());
+        return $this->doActionByEntity(new CreateNewIssue());
     }
 
     public function actionUpdate()

@@ -5,9 +5,9 @@ namespace frontend\modules\api\v1\models\task;
 use frontend\modules\api\v1\models\entity\Task;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\Column;
-use frontend\modules\api\v1\models\CreateNewEntity;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class CreateNewTask extends ValidationModel implements CreateNewEntity
+class CreateNewTask extends ValidationModel implements ActionByEntity
 {
     public $name;
     public $id_column;
@@ -28,7 +28,7 @@ class CreateNewTask extends ValidationModel implements CreateNewEntity
         ];
     }
 
-    public function create()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

@@ -5,9 +5,9 @@ namespace frontend\modules\api\v1\models\column;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\TaskTab;
 use frontend\modules\api\v1\models\entity\Column;
-use frontend\modules\api\v1\models\CreateNewEntity;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class CreateNewColumn extends ValidationModel implements CreateNewEntity
+class CreateNewColumn extends ValidationModel implements ActionByEntity
 {
     public $name;
     public $id_taskTab;
@@ -28,7 +28,7 @@ class CreateNewColumn extends ValidationModel implements CreateNewEntity
         ];
     }
 
-    public function create()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

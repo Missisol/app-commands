@@ -14,5 +14,11 @@ $config = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../config/main-local.php')
 );
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
+header('Access-Control-Expose-Headers: *');
+header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Credentials: true');
+
 $application = new yii\web\Application($config);
 $application->run();

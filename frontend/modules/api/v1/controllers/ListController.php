@@ -9,7 +9,7 @@ class ListController extends ApiController
 {
     public function actionIndex()
     {
-        return $this->getInfoByEntity(new GetColumnListsByIdListUser(), true);
+        return $this->getInfoByEntity(new GetColumnListsByIdListUser());
     }
 
     public function actionCreate()

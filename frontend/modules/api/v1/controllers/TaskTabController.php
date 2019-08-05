@@ -9,7 +9,7 @@ class TaskTabController extends ApiController
 {
     public function actionIndex()
     {
-        return $this->getInfoByEntity(new GetColumnsByIdTaskTab(), true);
+        return $this->getInfoByEntity(new GetColumnsByIdTaskTab());
     }
 
     public function actionCreate()

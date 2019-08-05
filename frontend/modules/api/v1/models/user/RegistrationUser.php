@@ -51,6 +51,7 @@ class RegistrationUser extends ValidationModel implements ActionByEntity
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         $user->generateAccessToken();
+        $user->status = User::STATUS_ACTIVE;
 
         return $user->save() && 
             SendEmailUser::sendEmail(self::VIEW_EMAIL_REGISTRATION, $user, self::SUBJECT_EMAIL_REGISTRATION);

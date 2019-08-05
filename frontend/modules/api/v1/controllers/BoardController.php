@@ -11,7 +11,7 @@ class BoardController extends ApiController
     public function actionIndex()
     {
         $user_id = Yii::$app->user->identity->getId();
-        return $this->getInfoByEntity(new GetInfoByBoard($user_id), true);
+        return $this->getInfoByEntity(new GetInfoByBoard($user_id));
     }
 
     public function actionCreate()

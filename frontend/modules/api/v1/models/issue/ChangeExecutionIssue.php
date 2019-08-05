@@ -4,11 +4,18 @@ namespace frontend\modules\api\v1\models\issue;
 
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\Issue;
+use frontend\modules\api\v1\models\ActionByEntity;
 
-class ChangeExecutionIssue extends ValidationModel
+class ChangeExecutionIssue extends ValidationModel implements ActionByEntity
 {
     public $id;
     public $execution;
+
+    public function __construct($id)
+    {
+        parent::__construct();
+        $this->id = $id;
+    }
 
     /**
      * {@inheritdoc}
@@ -28,7 +35,7 @@ class ChangeExecutionIssue extends ValidationModel
         ];
     }
 
-    public function changeExecution()
+    public function doAction()
     {
         if (!$this->validate()) {
             return false;

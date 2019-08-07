@@ -91,9 +91,9 @@ class User extends ActiveRecord implements IdentityInterface
             if (!$user->save()) {
                 return false;
             }
+            Yii::$app->response->headers->set('Authorization', 'Bearer ' . $user->access_token);
         }
-        
-        Yii::$app->response->headers->set('Authorization', 'Bearer ' . $user->access_token);
+
         return true;
     }
 

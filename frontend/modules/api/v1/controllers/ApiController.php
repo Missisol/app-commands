@@ -8,6 +8,7 @@ use yii\filters\auth\HttpBearerAuth;
 use frontend\modules\api\v1\models\GetInfoByEntity;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\ActionByEntity;
+use yii\filters\Cors;
 
 abstract class ApiController extends Controller
 {
@@ -15,9 +16,29 @@ abstract class ApiController extends Controller
     protected const STATUS_OK = 1;
     protected const STATUS_ERROR = -1;
 
+    public function actions()
+    {
+        return [
+            'options' => [
+                'class' => 'yii\rest\OptionsAction',
+            ],
+        ];
+    }
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+
+        $behaviors['corsFilter']['class'] = Cors::class;
+        $behaviors['corsFilter']['cors'] = [
+            'Origin' => ['*'],
+            'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+            'Access-Control-Request-Headers' => ['*'],
+            //'Access-Control-Allow-Credentials' => false,
+
+        ];
+
+        unset($behaviors['authenticator']);
         $behaviors['authenticator']['class'] = HttpBearerAuth::class;
         return $behaviors;
     }

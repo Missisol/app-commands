@@ -61,6 +61,7 @@ return [
                         'change-password' => 'change-password',
                         'change-email' => 'change-email',
                         'verify-new-email' => 'verify-new-email',
+                        'DELETE' => 'delete',
                     ],
                 ],
                 [

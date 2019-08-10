@@ -13,6 +13,7 @@ use frontend\modules\api\v1\models\user\ChangeDataUser;
 use frontend\modules\api\v1\models\user\ChangePasswordUser;
 use frontend\modules\api\v1\models\user\ChangeEmailUser;
 use frontend\modules\api\v1\models\user\VerifyNewEmail;
+use frontend\modules\api\v1\models\user\LogoutUser;
 
 class UserController extends ApiController
 {
@@ -25,6 +26,7 @@ class UserController extends ApiController
             'update',
             'change-password',
             'change-email',
+            'delete'
         ];
 
         return $behaviors;
@@ -87,5 +89,10 @@ class UserController extends ApiController
     public function actionVerifyNewEmail()
     {
         return $this->doActionByEntity(new VerifyNewEmail());
+    }
+
+    public function actionDelete()
+    {
+        return $this->deleteEntity(new LogoutUser());
     }
 }

@@ -61,19 +61,19 @@ return [
                         'change-password' => 'change-password',
                         'change-email' => 'change-email',
                         'verify-new-email' => 'verify-new-email',
+                        'DELETE' => 'delete',
                     ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
                         'v1/board', 
-                        'v1/task-tab', 
+                        'v1/label', 
                         'v1/list', 
                         'v1/column',
                         'v1/task',
-                        'v1/column-list',
-                        'v1/list-issue',
-                        'v1/issue'
+                        'v1/label-task',
+                        'v1/list-item',
                     ],
                     'pluralize' => false,
                     'prefix' => 'api/'

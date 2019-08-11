@@ -9,12 +9,13 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "column".
  *
  * @property int $id
- * @property string $name
- * @property int $id_taskTab
+ * @property string $title
+ * @property int $id_board
  * @property int $created_at
  * @property int $updated_at
  *
- * @property TaskTab $taskTab
+ * @property Board $board
+ * @property ListUser[] $lists
  * @property Task[] $tasks
  */
 class Column extends \yii\db\ActiveRecord
@@ -43,10 +44,10 @@ class Column extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'id_taskTab', 'created_at', 'updated_at'], 'required'],
-            [['id_taskTab', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 255],
-            [['id_taskTab'], 'exist', 'skipOnError' => true, 'targetClass' => TaskTab::class, 'targetAttribute' => ['id_taskTab' => 'id']],
+            [['title', 'id_board', 'created_at', 'updated_at'], 'required'],
+            [['id_board', 'created_at', 'updated_at'], 'integer'],
+            [['title'], 'string', 'max' => 255],
+            [['id_board'], 'exist', 'skipOnError' => true, 'targetClass' => Board::class, 'targetAttribute' => ['id_board' => 'id']],
         ];
     }
 
@@ -57,8 +58,8 @@ class Column extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'id_taskTab' => 'Id Task Tab',
+            'title' => 'Title',
+            'id_board' => 'Id Board',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -67,9 +68,17 @@ class Column extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTaskTab()
+    public function getBoard()
     {
-        return $this->hasOne(TaskTab::class, ['id' => 'id_taskTab']);
+        return $this->hasOne(Board::class, ['id' => 'id_board']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLists()
+    {
+        return $this->hasMany(ListUser::class, ['id_column' => 'id']);
     }
 
     /**
@@ -79,13 +88,13 @@ class Column extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Task::class, ['id_column' => 'id']);
     }
-
     public function fields()
     {
         return [
             'id',
-            'name',
-            'tasks'
+            'title',
+            'tasks',
+            'lists'
         ];
     }
 }

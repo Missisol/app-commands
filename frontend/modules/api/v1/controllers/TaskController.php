@@ -8,7 +8,7 @@ use frontend\modules\api\v1\models\task\UpdateTask;
 
 class TaskController extends ApiController
 {
-    public function actionCreate()
+    /*public function actionCreate()
     {
         return $this->doActionByEntity(new CreateNewTask());
     }
@@ -21,5 +21,5 @@ class TaskController extends ApiController
     public function actionUpdate($id)
     {
         return $this->doActionByEntity(new UpdateTask($id));
-    }
+    }*/
 }

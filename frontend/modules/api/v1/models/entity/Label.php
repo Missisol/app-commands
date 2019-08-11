@@ -6,25 +6,25 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "tasktab".
+ * This is the model class for table "label".
  *
  * @property int $id
- * @property string $name
+ * @property string $title
  * @property int $id_board
  * @property int $created_at
  * @property int $updated_at
  *
- * @property Column[] $columns
  * @property Board $board
+ * @property LabelTask[] $labelTasks
  */
-class TaskTab extends \yii\db\ActiveRecord
+class Label extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tasktab';
+        return 'label';
     }
 
     /**
@@ -43,9 +43,9 @@ class TaskTab extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'id_board', 'created_at', 'updated_at'], 'required'],
+            [['title', 'id_board', 'created_at', 'updated_at'], 'required'],
             [['id_board', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
             [['id_board'], 'exist', 'skipOnError' => true, 'targetClass' => Board::class, 'targetAttribute' => ['id_board' => 'id']],
         ];
     }
@@ -57,19 +57,11 @@ class TaskTab extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'title' => 'Title',
             'id_board' => 'Id Board',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getColumns()
-    {
-        return $this->hasMany(Column::class, ['id_taskTab' => 'id']);
     }
 
     /**
@@ -80,11 +72,11 @@ class TaskTab extends \yii\db\ActiveRecord
         return $this->hasOne(Board::class, ['id' => 'id_board']);
     }
 
-    public function fields()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLabelTasks()
     {
-        return [
-            'id',
-            'name'
-        ];
+        return $this->hasMany(LabelTask::class, ['id_label' => 'id']);
     }
 }

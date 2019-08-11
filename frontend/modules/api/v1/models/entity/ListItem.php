@@ -6,25 +6,26 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "columnlist".
+ * This is the model class for table "listItem".
  *
  * @property int $id
- * @property string $name
+ * @property string $title
+ * @property int $execution
+ * @property int $position
  * @property int $id_list
  * @property int $created_at
  * @property int $updated_at
  *
- * @property ListUser $list
- * @property ListIssue[] $listissues
+ * @property List $list
  */
-class ColumnList extends \yii\db\ActiveRecord
+class ListItem extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'columnlist';
+        return 'listItem';
     }
 
     /**
@@ -43,9 +44,9 @@ class ColumnList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'id_list', 'created_at', 'updated_at'], 'required'],
-            [['id_list', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['title', 'execution', 'position', 'id_list', 'created_at', 'updated_at'], 'required'],
+            [['execution', 'position', 'id_list', 'created_at', 'updated_at'], 'integer'],
+            [['title'], 'string', 'max' => 255],
             [['id_list'], 'exist', 'skipOnError' => true, 'targetClass' => ListUser::class, 'targetAttribute' => ['id_list' => 'id']],
         ];
     }
@@ -57,7 +58,9 @@ class ColumnList extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'title' => 'Title',
+            'execution' => 'Execution',
+            'position' => 'Position',
             'id_list' => 'Id List',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -70,22 +73,5 @@ class ColumnList extends \yii\db\ActiveRecord
     public function getList()
     {
         return $this->hasOne(ListUser::class, ['id' => 'id_list']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getListissues()
-    {
-        return $this->hasMany(ListIssue::class, ['id_columnList' => 'id']);
-    }
-
-    public function fields()
-    {
-        return [
-            'id',
-            'name',
-            'listIssues' => 'listissues'
-        ];
     }
 }

@@ -8,7 +8,7 @@ use frontend\modules\api\v1\models\ActionByEntity;
 
 class CreateNewBoard extends ValidationModel implements ActionByEntity
 {
-    public $name;
+    public $title;
 
     private $user_id;
 
@@ -23,9 +23,9 @@ class CreateNewBoard extends ValidationModel implements ActionByEntity
     public function rules()
     {
         return [
-            ['name', 'trim'],
-            ['name', 'required', 'message' => 'Название доски не может быть пустым.'],
-            ['name', 'string', 'max' => 255, 'tooLong' => 'Максимальная длина названия доски - 255 символов.'],
+            ['title', 'trim'],
+            ['title', 'required', 'message' => 'Название доски не может быть пустым.'],
+            ['title', 'string', 'max' => 255, 'tooLong' => 'Максимальная длина названия доски - 255 символов.'],
         ];
     }
 
@@ -36,7 +36,7 @@ class CreateNewBoard extends ValidationModel implements ActionByEntity
         }
 
         $board = new Board([
-            'name' => $this->name,
+            'title' => $this->title,
             'id_user' => $this->user_id
         ]);
 

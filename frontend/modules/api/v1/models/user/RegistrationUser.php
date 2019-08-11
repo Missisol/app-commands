@@ -6,6 +6,7 @@ use common\models\User;
 use frontend\modules\api\v1\service\SendEmailUser;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\ActionByEntity;
+use frontend\modules\api\v1\service\InitBoardUser;
 
 class RegistrationUser extends ValidationModel implements ActionByEntity
 {
@@ -54,6 +55,7 @@ class RegistrationUser extends ValidationModel implements ActionByEntity
         $user->status = User::STATUS_ACTIVE;
 
         return $user->save() && 
-            SendEmailUser::sendEmail(self::VIEW_EMAIL_REGISTRATION, $user, self::SUBJECT_EMAIL_REGISTRATION);
+            SendEmailUser::sendEmail(self::VIEW_EMAIL_REGISTRATION, $user, self::SUBJECT_EMAIL_REGISTRATION) &&
+            InitBoardUser::initBoard($user);//временно - до внедрения подтверждения эл почты
     }
 }

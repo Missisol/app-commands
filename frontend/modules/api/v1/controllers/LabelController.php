@@ -6,9 +6,9 @@ use frontend\modules\api\v1\models\issue\GetIssuesByIdListIssue;
 use frontend\modules\api\v1\models\issue\CreateNewIssue;
 use frontend\modules\api\v1\models\issue\ChangeExecutionIssue;
 
-class IssueController extends ApiController
+class LabelController extends ApiController
 {
-    public function actionIndex()
+    /*public function actionIndex()
     {
         return $this->getInfoByEntity(new GetIssuesByIdListIssue());
     }
@@ -21,5 +21,5 @@ class IssueController extends ApiController
     public function actionUpdate($id)
     {
         return $this->doActionByEntity(new ChangeExecutionIssue($id));
-    }
+    }*/
 }

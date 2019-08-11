@@ -10,14 +10,14 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "board".
  *
  * @property int $id
- * @property string $name
+ * @property string $title
  * @property int $id_user
  * @property int $created_at
  * @property int $updated_at
  *
  * @property User $user
- * @property ListIssue[] $lists
- * @property TaskTab[] $tasktabs
+ * @property Column[] $columns
+ * @property Label[] $labels
  */
 class Board extends \yii\db\ActiveRecord
 {
@@ -45,9 +45,9 @@ class Board extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'id_user', 'created_at', 'updated_at'], 'required'],
+            [['title', 'id_user', 'created_at', 'updated_at'], 'required'],
             [['id_user', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
@@ -59,7 +59,7 @@ class Board extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'title' => 'Title',
             'id_user' => 'Id User',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -77,24 +77,24 @@ class Board extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLists()
+    public function getColumns()
     {
-        return $this->hasMany(ListUser::class, ['id_board' => 'id']);
+        return $this->hasMany(Column::class, ['id_board' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTasktabs()
+    public function getLabels()
     {
-        return $this->hasMany(TaskTab::class, ['id_board' => 'id']);
+        return $this->hasMany(Label::class, ['id_board' => 'id']);
     }
 
     public function fields()
     {
         return [
             'id',
-            'name'
+            'title'
         ];
     }
 }

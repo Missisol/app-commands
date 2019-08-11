@@ -3,10 +3,10 @@
 namespace frontend\modules\api\v1\models\board;
 
 use frontend\modules\api\v1\models\entity\Board;
-use frontend\modules\api\v1\models\entity\TaskTab;
-use frontend\modules\api\v1\models\entity\ListUser;
-use frontend\modules\api\v1\models\GetInfoByEntity;
+use frontend\modules\api\v1\models\entity\Column;
+use frontend\modules\api\v1\models\entity\Label;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\GetInfoByEntity;
 
 class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
 {
@@ -69,21 +69,21 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
 
     private function getInfoByOneBoard($idBoard)
     {
-        $taskTabs = TaskTab::findAll([
+        $columns = Column::findAll([
             'id_board' => $idBoard,
         ]);
 
-        $lists = ListUser::findAll([
+        $labels = Label::findAll([
             'id_board' => $idBoard,
         ]);
 
-        return $this->getInfoByOneBoardInArray($taskTabs, $lists);
+        return $this->getInfoByOneBoardInArray($columns, $labels);
     }
 
-    private function getInfoByOneBoardInArray($taskTabs = [], $lists = []) {
+    private function getInfoByOneBoardInArray($columns = [], $labels = []) {
         return [
-            'taskTabs' => $taskTabs,
-            'lists' => $lists
+            'columns' => $columns,
+            'labels' => $labels
         ];
     }
 }

@@ -3,10 +3,10 @@
 namespace frontend\modules\api\v1\models\board;
 
 use frontend\modules\api\v1\models\entity\Board;
-use frontend\modules\api\v1\models\entity\TaskTab;
-use frontend\modules\api\v1\models\entity\ListUser;
-use frontend\modules\api\v1\models\GetInfoByEntity;
+use frontend\modules\api\v1\models\entity\Column;
+use frontend\modules\api\v1\models\entity\Label;
 use frontend\modules\api\v1\models\ValidationModel;
+use frontend\modules\api\v1\models\GetInfoByEntity;
 
 class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
 {
@@ -15,7 +15,7 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
     public $id;
 
     /**
-     * @param integer $user_id
+     * @param int $user_id
      */
     public function __construct($user_id)
     {
@@ -47,43 +47,24 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
             'id_user' => $this->user_id,
         ]);
 
-
-        if (count($boards) > 0) {
-            $idBoard = $boards[0]->id;
-
-            return array_merge(
-                [
-                    'boards' => $boards
-                ],
-                $this->getInfoByOneBoard($idBoard)
-            );
-        }
-
-        return array_merge(
-            [
-                'boards' => $boards
-            ],
-            $this->getInfoByOneBoardInArray()
-        );
+        return [
+            'boards' => $boards,
+        ];
     }
 
     private function getInfoByOneBoard($idBoard)
     {
-        $taskTabs = TaskTab::findAll([
+        $columns = Column::findAll([
             'id_board' => $idBoard,
         ]);
 
-        $lists = ListUser::findAll([
+        $labels = Label::findAll([
             'id_board' => $idBoard,
         ]);
 
-        return $this->getInfoByOneBoardInArray($taskTabs, $lists);
-    }
-
-    private function getInfoByOneBoardInArray($taskTabs = [], $lists = []) {
         return [
-            'taskTabs' => $taskTabs,
-            'lists' => $lists
+            'columns' => $columns,
+            'labels' => $labels,
         ];
     }
 }

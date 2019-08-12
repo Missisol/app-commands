@@ -18,7 +18,7 @@ class InitBoardUser
     public static function initBoard($user)
     {
         $board = new Board([
-            'name' => self::NAME_FIRST_BOARD_USER,
+            'title' => self::NAME_FIRST_BOARD_USER,
             'id_user' => $user->id
         ]);
         return $board->save(false);

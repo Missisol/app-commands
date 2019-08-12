@@ -8,6 +8,7 @@ use yii\filters\auth\HttpBearerAuth;
 use frontend\modules\api\v1\models\GetInfoByEntity;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\ActionByEntity;
+use frontend\modules\api\v1\models\DeleteEntity;
 use yii\filters\Cors;
 
 abstract class ApiController extends Controller
@@ -34,12 +35,11 @@ abstract class ApiController extends Controller
             'Origin' => ['*'],
             'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
             'Access-Control-Request-Headers' => ['*'],
-            //'Access-Control-Allow-Credentials' => false,
-
         ];
 
         unset($behaviors['authenticator']);
         $behaviors['authenticator']['class'] = HttpBearerAuth::class;
+
         return $behaviors;
     }
 
@@ -51,20 +51,21 @@ abstract class ApiController extends Controller
 
     protected function sendResponse($status, $info = '')
     {
-        if ($status == self::STATUS_OK) {
-            return $info === '' ? [
-                'status' => $status
+        if (self::STATUS_OK == $status) {
+            return '' === $info ? [
+                'status' => $status,
             ] : [
                 'status' => $status,
-                'data' => $info
+                'data' => $info,
             ];
         }
 
-        if ($status == self::STATUS_ERROR)
+        if (self::STATUS_ERROR == $status) {
             return [
                 'status' => $status,
-                'message' => $info
+                'message' => $info,
             ];
+        }
     }
 
     /**
@@ -80,7 +81,8 @@ abstract class ApiController extends Controller
     /**
      * @param GetInfoByEntity $model
      */
-    protected function getInfoByEntity($model) {
+    protected function getInfoByEntity($model)
+    {
         $model->setAttributes(Yii::$app->request->get());
 
         if ($result = $model->getInfo()) {
@@ -93,10 +95,23 @@ abstract class ApiController extends Controller
     /**
      * @param ActionByEntity $model
      */
-    protected function doActionByEntity($model) {
+    protected function doActionByEntity($model)
+    {
         $model->setAttributes(Yii::$app->request->post());
 
         if ($model->doAction()) {
+            return $this->sendResponse(self::STATUS_OK);
+        }
+
+        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
+    }
+
+    /**
+     * @param DeleteEntity $model
+     */
+    protected function deleteEntity($model)
+    {
+        if ($model->delete()) {
             return $this->sendResponse(self::STATUS_OK);
         }
 

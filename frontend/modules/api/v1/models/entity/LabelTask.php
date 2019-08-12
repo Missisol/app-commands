@@ -6,26 +6,26 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "list".
+ * This is the model class for table "labelTask".
  *
  * @property int $id
  * @property string $title
- * @property int $id_column
+ * @property int $id_task
+ * @property int $id_label
  * @property int $created_at
  * @property int $updated_at
- * @property int $position
  *
- * @property Column $column
- * @property ListItem[] $listItems
+ * @property Label $label
+ * @property Task $task
  */
-class ListUser extends \yii\db\ActiveRecord
+class LabelTask extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'list';
+        return 'labelTask';
     }
 
     /**
@@ -44,10 +44,11 @@ class ListUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'id_column', 'created_at', 'updated_at', 'position'], 'required'],
-            [['id_column', 'created_at', 'updated_at', 'position'], 'integer'],
+            [['title', 'id_task', 'id_label', 'created_at', 'updated_at'], 'required'],
+            [['id_task', 'id_label', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
-            [['id_column'], 'exist', 'skipOnError' => true, 'targetClass' => Column::class, 'targetAttribute' => ['id_column' => 'id']],
+            [['id_label'], 'exist', 'skipOnError' => true, 'targetClass' => Label::className(), 'targetAttribute' => ['id_label' => 'id']],
+            [['id_task'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['id_task' => 'id']],
         ];
     }
 
@@ -59,35 +60,26 @@ class ListUser extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Title',
-            'id_column' => 'Id Column',
+            'id_task' => 'Id Task',
+            'id_label' => 'Id Label',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'position' => 'Position',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getColumn()
+    public function getLabel()
     {
-        return $this->hasOne(Column::class, ['id' => 'id_column']);
+        return $this->hasOne(Label::className(), ['id' => 'id_label']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getListItems()
+    public function getTask()
     {
-        return $this->hasMany(ListItem::class, ['id_list' => 'id']);
-    }
-
-    public function fields()
-    {
-        return [
-            'id',
-            'title',
-            'position'
-        ];
+        return $this->hasOne(Task::className(), ['id' => 'id_task']);
     }
 }

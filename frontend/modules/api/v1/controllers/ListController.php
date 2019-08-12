@@ -7,7 +7,7 @@ use frontend\modules\api\v1\models\listUser\CreateNewListUser;
 
 class ListController extends ApiController
 {
-    public function actionIndex()
+    /*public function actionIndex()
     {
         return $this->getInfoByEntity(new GetColumnListsByIdListUser());
     }
@@ -15,5 +15,5 @@ class ListController extends ApiController
     public function actionCreate()
     {
         return $this->doActionByEntity(new CreateNewListUser());
-    }
+    }*/
 }

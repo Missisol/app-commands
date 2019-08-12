@@ -85,15 +85,6 @@ class m190810_140315_new_structure_table extends Migration
             'list',
             'id'
         );
-
-        $this->addColumn('{{%task}}', 'id_labelTask', $this->integer()->notNull());
-        $this->addForeignKey(
-            'fk_task_labelTask',
-            'task',
-            'id_labelTask',
-            'labelTask',
-            'id'
-        );
     }
 
     /**
@@ -101,9 +92,6 @@ class m190810_140315_new_structure_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('fk_task_labelTask', 'task');
-        $this->dropColumn('{{%task}}', 'id_labelTask');
-        
         $this->dropTable('{{%listItem}}');
 
         $this->dropTable('{{%labelTask}}');

@@ -15,7 +15,7 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
     public $id;
 
     /**
-     * @param integer $user_id
+     * @param int $user_id
      */
     public function __construct($user_id)
     {
@@ -47,24 +47,9 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
             'id_user' => $this->user_id,
         ]);
 
-
-        if (count($boards) > 0) {
-            $idBoard = $boards[0]->id;
-
-            return array_merge(
-                [
-                    'boards' => $boards
-                ],
-                $this->getInfoByOneBoard($idBoard)
-            );
-        }
-
-        return array_merge(
-            [
-                'boards' => $boards
-            ],
-            $this->getInfoByOneBoardInArray()
-        );
+        return [
+            'boards' => $boards,
+        ];
     }
 
     private function getInfoByOneBoard($idBoard)
@@ -77,13 +62,9 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
             'id_board' => $idBoard,
         ]);
 
-        return $this->getInfoByOneBoardInArray($columns, $labels);
-    }
-
-    private function getInfoByOneBoardInArray($columns = [], $labels = []) {
         return [
             'columns' => $columns,
-            'labels' => $labels
+            'labels' => $labels,
         ];
     }
 }

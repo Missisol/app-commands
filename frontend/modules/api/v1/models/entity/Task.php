@@ -15,11 +15,9 @@ use yii\behaviors\TimestampBehavior;
  * @property int $created_at
  * @property int $updated_at
  * @property int $position
- * @property int $id_labelTask
  *
  * @property LabelTask[] $labelTasks
  * @property Column $column
- * @property LabelTask $labelTask
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -47,11 +45,10 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'id_column', 'created_at', 'updated_at', 'position', 'id_labelTask'], 'required'],
-            [['id_column', 'created_at', 'updated_at', 'position', 'id_labelTask'], 'integer'],
+            [['title', 'id_column', 'created_at', 'updated_at', 'position'], 'required'],
+            [['id_column', 'created_at', 'updated_at', 'position'], 'integer'],
             [['title', 'description'], 'string', 'max' => 255],
-            [['id_column'], 'exist', 'skipOnError' => true, 'targetClass' => Column::class, 'targetAttribute' => ['id_column' => 'id']],
-            [['id_labelTask'], 'exist', 'skipOnError' => true, 'targetClass' => LabelTask::class, 'targetAttribute' => ['id_labelTask' => 'id']],
+            [['id_column'], 'exist', 'skipOnError' => true, 'targetClass' => Column::class, 'targetAttribute' => ['id_column' => 'id']]
         ];
     }
 
@@ -67,8 +64,7 @@ class Task extends \yii\db\ActiveRecord
             'id_column' => 'Id Column',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'position' => 'Position',
-            'id_labelTask' => 'Id Label Task',
+            'position' => 'Position'
         ];
     }
 
@@ -86,14 +82,6 @@ class Task extends \yii\db\ActiveRecord
     public function getColumn()
     {
         return $this->hasOne(Column::class, ['id' => 'id_column']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLabelTask()
-    {
-        return $this->hasOne(LabelTask::class, ['id' => 'id_labelTask']);
     }
     
     public function fields()

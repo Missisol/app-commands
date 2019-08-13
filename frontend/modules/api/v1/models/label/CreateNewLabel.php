@@ -5,9 +5,9 @@ namespace frontend\modules\api\v1\models\label;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\Label;
 use frontend\modules\api\v1\models\entity\Board;
-use frontend\modules\api\v1\models\ActionByEntity;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewLabel extends ValidationModel implements ActionByEntity
+class CreateNewLabel extends ValidationModel implements CreateNewEntity
 {
     public $title;
     public $id_board;
@@ -28,7 +28,7 @@ class CreateNewLabel extends ValidationModel implements ActionByEntity
         ];
     }
 
-    public function doAction()
+    public function create()
     {
         if (!$this->validate()) {
             return false;
@@ -36,9 +36,9 @@ class CreateNewLabel extends ValidationModel implements ActionByEntity
 
         $label = new Label([
             'title' => $this->title,
-            'id_board' => $this->id_board
+            'id_board' => $this->id_board,
         ]);
 
-        return $label->save(false);
+        return $label->save(false) ? ['id' => $label->id] : false;
     }
 }

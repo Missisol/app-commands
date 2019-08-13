@@ -18,7 +18,7 @@ class BoardController extends ApiController
     public function actionCreate()
     {
         $user_id = Yii::$app->user->identity->getId();
-        return $this->doActionByEntity(new CreateNewBoard($user_id));
+        return $this->createNewEntity(new CreateNewBoard($user_id));
     }
 
     public function actionUpdate($id)

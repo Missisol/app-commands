@@ -9,7 +9,7 @@ class ColumnController extends ApiController
 {
     public function actionCreate()
     {
-        return $this->doActionByEntity(new CreateNewColumn());
+        return $this->createNewEntity(new CreateNewColumn());
     }
 
     public function actionUpdate($id)

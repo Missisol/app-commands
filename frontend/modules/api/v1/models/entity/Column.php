@@ -88,13 +88,12 @@ class Column extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Task::class, ['id_column' => 'id']);
     }
+
     public function fields()
     {
         return [
             'id',
-            'title',
-            'tasks',
-            'lists'
+            'title'
         ];
     }
 }

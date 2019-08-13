@@ -9,7 +9,7 @@ class LabelController extends ApiController
 {
     public function actionCreate()
     {
-        return $this->doActionByEntity(new CreateNewLabel());
+        return $this->createNewEntity(new CreateNewLabel());
     }
 
     public function actionUpdate($id)

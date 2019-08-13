@@ -9,6 +9,7 @@ use frontend\modules\api\v1\models\GetInfoByEntity;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\ActionByEntity;
 use frontend\modules\api\v1\models\DeleteEntity;
+use frontend\modules\api\v1\models\CreateNewEntity;
 use yii\filters\Cors;
 
 abstract class ApiController extends Controller
@@ -101,6 +102,20 @@ abstract class ApiController extends Controller
 
         if ($model->doAction()) {
             return $this->sendResponse(self::STATUS_OK);
+        }
+
+        return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));
+    }
+
+     /**
+     * @param CreateNewEntity $model
+     */
+    protected function createNewEntity($model)
+    {
+        $model->setAttributes(Yii::$app->request->post());
+
+        if ($result = $model->create()) {
+            return $this->sendResponse(self::STATUS_OK, $result);
         }
 
         return $this->sendResponse(self::STATUS_ERROR, $this->getMessage($model));

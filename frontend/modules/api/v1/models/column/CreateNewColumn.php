@@ -5,9 +5,9 @@ namespace frontend\modules\api\v1\models\column;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\Board;
 use frontend\modules\api\v1\models\entity\Column;
-use frontend\modules\api\v1\models\ActionByEntity;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewColumn extends ValidationModel implements ActionByEntity
+class CreateNewColumn extends ValidationModel implements CreateNewEntity
 {
     public $title;
     public $id_board;
@@ -28,7 +28,7 @@ class CreateNewColumn extends ValidationModel implements ActionByEntity
         ];
     }
 
-    public function doAction()
+    public function create()
     {
         if (!$this->validate()) {
             return false;
@@ -39,6 +39,6 @@ class CreateNewColumn extends ValidationModel implements ActionByEntity
             'id_board' => $this->id_board
         ]);
 
-        return $column->save(false);
+        return $column->save(false) ? ['id' => $column->id] : false;
     }
 }

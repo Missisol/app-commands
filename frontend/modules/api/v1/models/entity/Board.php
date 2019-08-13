@@ -2,25 +2,25 @@
 
 namespace frontend\modules\api\v1\models\entity;
 
-use Yii;
 use common\models\User;
 use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "board".
  *
- * @property int $id
- * @property string $title
- * @property int $id_user
- * @property int $created_at
- * @property int $updated_at
- *
- * @property User $user
+ * @property int      $id
+ * @property string   $title
+ * @property int      $id_user
+ * @property int      $created_at
+ * @property int      $updated_at
+ * @property User     $user
  * @property Column[] $columns
- * @property Label[] $labels
+ * @property Label[]  $labels
  */
 class Board extends \yii\db\ActiveRecord
 {
+    const SCENARIO_INFO_ABOUT_ONE_BOARD = 'infoAboutOneBoard';
+
     /**
      * {@inheritdoc}
      */
@@ -92,6 +92,15 @@ class Board extends \yii\db\ActiveRecord
 
     public function fields()
     {
+        if (self::SCENARIO_INFO_ABOUT_ONE_BOARD == $this->scenario) {
+            return [
+                'id',
+                'title',
+                'columns',
+                'labels',
+            ];
+        }
+
         return [
             'id',
             'title'

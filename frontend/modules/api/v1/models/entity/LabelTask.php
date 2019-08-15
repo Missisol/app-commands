@@ -82,4 +82,12 @@ class LabelTask extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Task::className(), ['id' => 'id_task']);
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'title'
+        ];
+    }
 }

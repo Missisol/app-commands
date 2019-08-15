@@ -5,11 +5,12 @@ namespace frontend\modules\api\v1\models\task;
 use frontend\modules\api\v1\models\entity\Task;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\Column;
-use frontend\modules\api\v1\models\ActionByEntity;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewTask extends ValidationModel implements ActionByEntity
+class CreateNewTask extends ValidationModel implements CreateNewEntity
 {
-    public $name;
+    public $title;
+    public $position;
     public $id_column;
 
     /**
@@ -18,9 +19,12 @@ class CreateNewTask extends ValidationModel implements ActionByEntity
     public function rules()
     {
         return [
-            ['name', 'trim'],
-            ['name', 'required', 'message' => 'Название задачи не может быть пустым.'],
-            ['name', 'string', 'max' => 255, 'tooLong' => 'Максимальная длина названия задачи - 255 символов.'],
+            ['title', 'trim'],
+            ['title', 'required', 'message' => 'Название задачи не может быть пустым.'],
+            ['title', 'string', 'max' => 255, 'tooLong' => 'Максимальная длина названия задачи - 255 символов.'],
+
+            ['position', 'required', 'message' => 'Позиция не может быть пустой.'],
+            ['position', 'integer'],
 
             ['id_column', 'required', 'message' => 'id_column не может быть пустым.'],
             ['id_column', 'integer'],
@@ -28,17 +32,18 @@ class CreateNewTask extends ValidationModel implements ActionByEntity
         ];
     }
 
-    public function doAction()
+    public function create()
     {
         if (!$this->validate()) {
             return false;
         }
 
         $task = new Task([
-            'name' => $this->name,
+            'title' => $this->title,
+            'position' => $this->position,
             'id_column' => $this->id_column
         ]);
 
-        return $task->save(false);
+        return $task->save(false) ? ['id' => $task->id] : false;
     }
 }

@@ -2,24 +2,18 @@
 
 namespace frontend\modules\api\v1\controllers;
 
-use frontend\modules\api\v1\models\issue\GetIssuesByIdListIssue;
-use frontend\modules\api\v1\models\issue\CreateNewIssue;
-use frontend\modules\api\v1\models\issue\ChangeExecutionIssue;
+use frontend\modules\api\v1\models\label\CreateNewLabel;
+use frontend\modules\api\v1\models\label\UpdateLabel;
 
 class LabelController extends ApiController
 {
-    /*public function actionIndex()
-    {
-        return $this->getInfoByEntity(new GetIssuesByIdListIssue());
-    }
-
     public function actionCreate()
     {
-        return $this->doActionByEntity(new CreateNewIssue());
+        return $this->createNewEntity(new CreateNewLabel());
     }
 
     public function actionUpdate($id)
     {
-        return $this->doActionByEntity(new ChangeExecutionIssue($id));
-    }*/
+        return $this->doActionByEntity(new UpdateLabel($id));
+    }
 }

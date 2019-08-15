@@ -3,8 +3,6 @@
 namespace frontend\modules\api\v1\models\board;
 
 use frontend\modules\api\v1\models\entity\Board;
-use frontend\modules\api\v1\models\entity\Column;
-use frontend\modules\api\v1\models\entity\Label;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\GetInfoByEntity;
 
@@ -38,7 +36,7 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
             return false;
         }
 
-        return $this->id ? $this->getInfoByOneBoard($this->id) : $this->getInitInfo();
+        return $this->id ? $this->getInfoByOneBoard() : $this->getInitInfo();
     }
 
     private function getInitInfo()
@@ -52,19 +50,11 @@ class GetInfoByBoard extends ValidationModel implements GetInfoByEntity
         ];
     }
 
-    private function getInfoByOneBoard($idBoard)
+    private function getInfoByOneBoard()
     {
-        $columns = Column::findAll([
-            'id_board' => $idBoard,
-        ]);
+        $board = Board::findOne($this->id);
+        $board->setScenario(Board::SCENARIO_INFO_ABOUT_ONE_BOARD);
 
-        $labels = Label::findAll([
-            'id_board' => $idBoard,
-        ]);
-
-        return [
-            'columns' => $columns,
-            'labels' => $labels,
-        ];
+        return $board;
     }
 }

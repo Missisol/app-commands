@@ -79,4 +79,12 @@ class Label extends \yii\db\ActiveRecord
     {
         return $this->hasMany(LabelTask::class, ['id_label' => 'id']);
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'title'
+        ];
+    }
 }

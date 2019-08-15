@@ -4,9 +4,9 @@ namespace frontend\modules\api\v1\models\board;
 
 use frontend\modules\api\v1\models\entity\Board;
 use frontend\modules\api\v1\models\ValidationModel;
-use frontend\modules\api\v1\models\ActionByEntity;
+use frontend\modules\api\v1\models\CreateNewEntity;
 
-class CreateNewBoard extends ValidationModel implements ActionByEntity
+class CreateNewBoard extends ValidationModel implements CreateNewEntity
 {
     public $title;
 
@@ -29,7 +29,7 @@ class CreateNewBoard extends ValidationModel implements ActionByEntity
         ];
     }
 
-    public function doAction()
+    public function create()
     {
         if (!$this->validate()) {
             return false;
@@ -37,9 +37,9 @@ class CreateNewBoard extends ValidationModel implements ActionByEntity
 
         $board = new Board([
             'title' => $this->title,
-            'id_user' => $this->user_id
+            'id_user' => $this->user_id,
         ]);
 
-        return $board->save(false);
+        return $board->save(false) ? ['id' => $board->id] : false;
     }
 }

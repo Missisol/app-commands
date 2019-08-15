@@ -88,8 +88,10 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             'id',
-            'name',
-            'description'
+            'title',
+            'description',
+            'position',
+            'labelTasks'
         ];
     }
 }

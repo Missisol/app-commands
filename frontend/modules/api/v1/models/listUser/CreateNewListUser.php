@@ -6,6 +6,7 @@ use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\ListUser;
 use frontend\modules\api\v1\models\CreateNewEntity;
 use frontend\modules\api\v1\models\entity\Column;
+use frontend\modules\api\v1\service\PositionInColumn;
 
 class CreateNewListUser extends ValidationModel implements CreateNewEntity
 {
@@ -34,9 +35,7 @@ class CreateNewListUser extends ValidationModel implements CreateNewEntity
             return false;
         }
 
-        $position = ListUser::find()
-            ->where(['id_column' => $this->id_column])
-            ->max('position') + ListUser::INCREASE_POSITION;
+        $position = PositionInColumn::calculationNewPosition();
 
         $listUser = new ListUser([
             'title' => $this->title,

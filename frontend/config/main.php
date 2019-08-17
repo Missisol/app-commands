@@ -71,14 +71,13 @@ return [
                         'v1/label', 
                         'v1/column',
                         'v1/label-task',
-                        'v1/list-item',
                     ],
                     'pluralize' => false,
                     'prefix' => 'api/'
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/task', 'v1/list'],
+                    'controller' => ['v1/task', 'v1/list', 'v1/list-item'],
                     'pluralize' => false,
                     'prefix' => 'api/',
                     'extraPatterns' => [

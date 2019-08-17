@@ -6,6 +6,7 @@ use frontend\modules\api\v1\models\entity\Task;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\entity\Column;
 use frontend\modules\api\v1\models\CreateNewEntity;
+use frontend\modules\api\v1\service\PositionInColumn;
 
 class CreateNewTask extends ValidationModel implements CreateNewEntity
 {
@@ -34,9 +35,7 @@ class CreateNewTask extends ValidationModel implements CreateNewEntity
             return false;
         }
 
-        $position = Task::find()
-            ->where(['id_column' => $this->id_column])
-            ->max('position') + Task::INCREASE_POSITION;
+        $position = PositionInColumn::calculationNewPosition();
 
         $task = new Task([
             'title' => $this->title,

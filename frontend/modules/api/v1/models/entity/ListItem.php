@@ -20,6 +20,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class ListItem extends \yii\db\ActiveRecord
 {
+    const INCREASE_POSITION = 100;
+
+    const ITEM_DONE = 1;
+    const ITEM_NOT_DONE = 0;
     /**
      * {@inheritdoc}
      */
@@ -48,6 +52,9 @@ class ListItem extends \yii\db\ActiveRecord
             [['execution', 'position', 'id_list', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['id_list'], 'exist', 'skipOnError' => true, 'targetClass' => ListUser::class, 'targetAttribute' => ['id_list' => 'id']],
+
+            ['execution', 'default', 'value' => self::ITEM_NOT_DONE],
+            ['execution', 'in', 'range' => [self::ITEM_DONE, self::ITEM_NOT_DONE]],
         ];
     }
 

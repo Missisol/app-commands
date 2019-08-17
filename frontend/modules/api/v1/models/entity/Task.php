@@ -2,22 +2,20 @@
 
 namespace frontend\modules\api\v1\models\entity;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "task".
  *
- * @property int $id
- * @property string $title
- * @property string $description
- * @property int $id_column
- * @property int $created_at
- * @property int $updated_at
- * @property int $position
- *
+ * @property int         $id
+ * @property string      $title
+ * @property string      $description
+ * @property int         $id_column
+ * @property int         $created_at
+ * @property int         $updated_at
+ * @property int         $position
  * @property LabelTask[] $labelTasks
- * @property Column $column
+ * @property Column      $column
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -48,7 +46,7 @@ class Task extends \yii\db\ActiveRecord
             [['title', 'id_column', 'created_at', 'updated_at', 'position'], 'required'],
             [['id_column', 'created_at', 'updated_at', 'position'], 'integer'],
             [['title', 'description'], 'string', 'max' => 255],
-            [['id_column'], 'exist', 'skipOnError' => true, 'targetClass' => Column::class, 'targetAttribute' => ['id_column' => 'id']]
+            [['id_column'], 'exist', 'skipOnError' => true, 'targetClass' => Column::class, 'targetAttribute' => ['id_column' => 'id']],
         ];
     }
 
@@ -64,7 +62,7 @@ class Task extends \yii\db\ActiveRecord
             'id_column' => 'Id Column',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'position' => 'Position'
+            'position' => 'Position',
         ];
     }
 
@@ -83,13 +81,15 @@ class Task extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Column::class, ['id' => 'id_column']);
     }
-    
+
     public function fields()
     {
         return [
             'id',
-            'name',
-            'description'
+            'title',
+            'description',
+            'position',
+            'labelTasks',
         ];
     }
 }

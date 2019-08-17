@@ -6,7 +6,7 @@ use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\GetInfoByEntity;
 use frontend\modules\api\v1\models\entity\Task;
 
-class GetTasksByIdTask extends ValidationModel implements GetInfoByEntity
+class GetInfoByTask extends ValidationModel implements GetInfoByEntity
 {
     public $id;
 

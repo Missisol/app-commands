@@ -9,7 +9,7 @@ use frontend\modules\api\v1\models\ActionByEntity;
 class UpdateTask extends ValidationModel implements ActionByEntity
 {
     public $id;
-    public $name;
+    public $title;
     public $description;
 
     public function __construct($id)
@@ -29,10 +29,11 @@ class UpdateTask extends ValidationModel implements ActionByEntity
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class,
                 'message' => 'Задачи с данным id не существует', ],
 
-            [['name', 'description'], 'trim'],
-            [['name', 'description'], 'default'],
-            ['name', 'string', 'max' => 255, 'message' => 'Максимальная длина названия задачи - 255 символов.'],
+            [['title', 'description'], 'trim'],
+            [['title', 'description'], 'default'],
+            ['title', 'string', 'max' => 255, 'message' => 'Максимальная длина названия задачи - 255 символов.'],
             ['description', 'string', 'max' => 255, 'message' => 'Максимальная длина описания задачи - 255 символов.'],
+
             ['id', 'oneRequiredParam'],
         ];
     }
@@ -40,8 +41,8 @@ class UpdateTask extends ValidationModel implements ActionByEntity
     public function oneRequiredParam()
     {
         if (!$this->hasErrors()) {
-            if (null == $this->name && null == $this->description) {
-                $this->addError('params', 'Обязательно должно быть передано название (name) '.
+            if (null == $this->title && null == $this->description) {
+                $this->addError('params', 'Обязательно должно быть передано название (title) '.
                     'или описание задачи (description).');
             }
         }
@@ -55,8 +56,8 @@ class UpdateTask extends ValidationModel implements ActionByEntity
 
         $task = Task::findOne($this->id);
 
-        if ($this->name) {
-            $task->name = $this->name;
+        if ($this->title) {
+            $task->title = $this->title;
         }
         if ($this->description) {
             $task->description = $this->description;

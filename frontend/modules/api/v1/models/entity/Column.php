@@ -93,7 +93,9 @@ class Column extends \yii\db\ActiveRecord
     {
         return [
             'id',
-            'title'
+            'title',
+            'lists',
+            'tasks'
         ];
     }
 }

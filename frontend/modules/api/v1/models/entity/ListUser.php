@@ -2,20 +2,18 @@
 
 namespace frontend\modules\api\v1\models\entity;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "list".
  *
- * @property int $id
- * @property string $title
- * @property int $id_column
- * @property int $created_at
- * @property int $updated_at
- * @property int $position
- *
- * @property Column $column
+ * @property int        $id
+ * @property string     $title
+ * @property int        $id_column
+ * @property int        $created_at
+ * @property int        $updated_at
+ * @property int        $position
+ * @property Column     $column
  * @property ListItem[] $listItems
  */
 class ListUser extends \yii\db\ActiveRecord
@@ -87,7 +85,8 @@ class ListUser extends \yii\db\ActiveRecord
         return [
             'id',
             'title',
-            'position'
+            'position',
+            'listItems',
         ];
     }
 }

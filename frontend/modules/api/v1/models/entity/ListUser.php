@@ -20,6 +20,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class ListUser extends \yii\db\ActiveRecord
 {
+    const INCREASE_POSITION = 100;
+    
     /**
      * {@inheritdoc}
      */
@@ -87,7 +89,8 @@ class ListUser extends \yii\db\ActiveRecord
         return [
             'id',
             'title',
-            'position'
+            'position',
+            'listItems'
         ];
     }
 }

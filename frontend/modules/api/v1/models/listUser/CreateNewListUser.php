@@ -10,7 +10,6 @@ use frontend\modules\api\v1\models\entity\Column;
 class CreateNewListUser extends ValidationModel implements CreateNewEntity
 {
     public $title;
-    public $position;
     public $id_column;
 
     /**
@@ -22,9 +21,6 @@ class CreateNewListUser extends ValidationModel implements CreateNewEntity
             ['title', 'trim'],
             ['title', 'required', 'message' => 'Название списка задач не может быть пустым.'],
             ['title', 'string', 'max' => 255, 'tooLong' => 'Максимальная длина названия списка задач - 255 символов.'],
-
-            ['position', 'required', 'message' => 'Позиция не может быть пустой.'],
-            ['position', 'integer'],
 
             ['id_column', 'required', 'message' => 'id_column не может быть пустым.'],
             ['id_column', 'integer'],
@@ -38,12 +34,21 @@ class CreateNewListUser extends ValidationModel implements CreateNewEntity
             return false;
         }
 
+        $position = ListUser::find()
+            ->where(['id_column' => $this->id_column])
+            ->max('position') + ListUser::INCREASE_POSITION;
+
         $listUser = new ListUser([
             'title' => $this->title,
-            'position' => $this->position,
+            'position' => $position,
             'id_column' => $this->id_column
         ]);
 
-        return $listUser->save(false) ? ['id' => $listUser->id] : false;
+        return $listUser->save(false) 
+            ? [
+                'id' => $listUser->id,
+                'position' => $position
+            ] 
+            : false;
     }
 }

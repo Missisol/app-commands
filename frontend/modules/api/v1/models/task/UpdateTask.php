@@ -41,8 +41,8 @@ class UpdateTask extends ValidationModel implements ActionByEntity
     public function oneRequiredParam()
     {
         if (!$this->hasErrors()) {
-            if (null == $this->title && null == $this->description && null) {
-                $this->addError('params', 'Обязательно должно быть передано название (title), '.
+            if (null == $this->title && null == $this->description) {
+                $this->addError('params', 'Обязательно должно быть передано название (title) '.
                     'или описание задачи (description).');
             }
         }

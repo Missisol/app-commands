@@ -21,6 +21,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Task extends \yii\db\ActiveRecord
 {
+    const INCREASE_POSITION = 100;
+
     /**
      * {@inheritdoc}
      */

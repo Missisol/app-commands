@@ -69,14 +69,21 @@ return [
                     'controller' => [
                         'v1/board', 
                         'v1/label', 
-                        'v1/list', 
                         'v1/column',
-                        'v1/task',
                         'v1/label-task',
                         'v1/list-item',
                     ],
                     'pluralize' => false,
                     'prefix' => 'api/'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/task', 'v1/list'],
+                    'pluralize' => false,
+                    'prefix' => 'api/',
+                    'extraPatterns' => [
+                        'change-position' => 'change-position',
+                    ],
                 ],
                 '\w+|\W+' => '',
             ],

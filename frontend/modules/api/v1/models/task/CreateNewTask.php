@@ -10,7 +10,6 @@ use frontend\modules\api\v1\models\CreateNewEntity;
 class CreateNewTask extends ValidationModel implements CreateNewEntity
 {
     public $title;
-    public $position;
     public $id_column;
 
     /**
@@ -22,9 +21,6 @@ class CreateNewTask extends ValidationModel implements CreateNewEntity
             ['title', 'trim'],
             ['title', 'required', 'message' => 'Название задачи не может быть пустым.'],
             ['title', 'string', 'max' => 255, 'tooLong' => 'Максимальная длина названия задачи - 255 символов.'],
-
-            ['position', 'required', 'message' => 'Позиция не может быть пустой.'],
-            ['position', 'integer'],
 
             ['id_column', 'required', 'message' => 'id_column не может быть пустым.'],
             ['id_column', 'integer'],
@@ -38,12 +34,21 @@ class CreateNewTask extends ValidationModel implements CreateNewEntity
             return false;
         }
 
+        $position = Task::find()
+            ->where(['id_column' => $this->id_column])
+            ->max('position') + Task::INCREASE_POSITION;
+
         $task = new Task([
             'title' => $this->title,
-            'position' => $this->position,
-            'id_column' => $this->id_column
+            'position' => $position,
+            'id_column' => $this->id_column,
         ]);
 
-        return $task->save(false) ? ['id' => $task->id] : false;
+        return $task->save(false) 
+            ? [
+                'id' => $task->id,
+                'position' => $position,
+            ]
+            : false;
     }
 }

@@ -44,8 +44,9 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'id_column', 'created_at', 'updated_at', 'position'], 'required'],
+            [['description'], 'string'],
             [['id_column', 'created_at', 'updated_at', 'position'], 'integer'],
-            [['title', 'description'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
             [['id_column'], 'exist', 'skipOnError' => true, 'targetClass' => Column::class, 'targetAttribute' => ['id_column' => 'id']],
         ];
     }

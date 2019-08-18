@@ -35,7 +35,7 @@ class CreateNewListUser extends ValidationModel implements CreateNewEntity
             return false;
         }
 
-        $position = PositionInColumn::calculationNewPosition();
+        $position = PositionInColumn::calculationNewPosition($this->id_column);
 
         $listUser = new ListUser([
             'title' => $this->title,

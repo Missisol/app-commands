@@ -9,14 +9,14 @@ class PositionInColumn
 {
     private const INCREASE_POSITION = 100;
 
-    public static function calculationNewPosition()
+    public static function calculationNewPosition($id_column)
     {
         $maxPositionTask = Task::find()
-            ->where(['id_column' => $this->id_column])
+            ->where(['id_column' => $id_column])
             ->max('position');
 
         $maxPositionListUser = ListUser::find()
-            ->where(['id_column' => $this->id_column])
+            ->where(['id_column' => $id_column])
             ->max('position');
 
         return max($maxPositionTask, $maxPositionListUser) + self::INCREASE_POSITION;

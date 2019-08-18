@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m190818_104456_change_task_table
+ * Class m190818_104456_change_task_labelTask_table
  */
-class m190818_104456_change_task_table extends Migration
+class m190818_104456_change_task_labelTask_table extends Migration
 {
     /**
      * {@inheritdoc}

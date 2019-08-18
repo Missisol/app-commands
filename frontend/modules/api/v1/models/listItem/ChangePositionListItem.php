@@ -3,7 +3,6 @@
 namespace frontend\modules\api\v1\models\listItem;
 
 use frontend\modules\api\v1\models\entity\Task;
-use frontend\modules\api\v1\models\entity\Column;
 use frontend\modules\api\v1\models\entity\ListUser;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\ActionByEntity;

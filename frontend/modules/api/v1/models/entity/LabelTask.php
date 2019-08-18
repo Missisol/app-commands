@@ -2,14 +2,12 @@
 
 namespace frontend\modules\api\v1\models\entity;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "labelTask".
  *
  * @property int $id
- * @property string $title
  * @property int $id_task
  * @property int $id_label
  * @property int $created_at
@@ -44,11 +42,10 @@ class LabelTask extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'id_task', 'id_label', 'created_at', 'updated_at'], 'required'],
+            [['id_task', 'id_label'], 'required'],
             [['id_task', 'id_label', 'created_at', 'updated_at'], 'integer'],
-            [['title'], 'string', 'max' => 255],
-            [['id_label'], 'exist', 'skipOnError' => true, 'targetClass' => Label::className(), 'targetAttribute' => ['id_label' => 'id']],
-            [['id_task'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['id_task' => 'id']],
+            [['id_label'], 'exist', 'skipOnError' => true, 'targetClass' => Label::class, 'targetAttribute' => ['id_label' => 'id']],
+            [['id_task'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['id_task' => 'id']],
         ];
     }
 
@@ -59,7 +56,6 @@ class LabelTask extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
             'id_task' => 'Id Task',
             'id_label' => 'Id Label',
             'created_at' => 'Created At',
@@ -72,7 +68,7 @@ class LabelTask extends \yii\db\ActiveRecord
      */
     public function getLabel()
     {
-        return $this->hasOne(Label::className(), ['id' => 'id_label']);
+        return $this->hasOne(Label::class, ['id' => 'id_label']);
     }
 
     /**
@@ -80,14 +76,15 @@ class LabelTask extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Task::className(), ['id' => 'id_task']);
+        return $this->hasOne(Task::class, ['id' => 'id_task']);
     }
 
     public function fields()
     {
         return [
             'id',
-            'title'
+            'id_task',
+            'id_label',
         ];
     }
 }

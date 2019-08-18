@@ -39,7 +39,8 @@ class UpdateTask extends ValidationModel implements ActionByEntity
             ['title', 'string', 'max' => 255, 'message' => 'Максимальная длина названия задачи - 255 символов.'],
             ['description', 'string'],
 
-            [['labels'], 'each', 'rule' => ['exist', 'skipOnError' => true, 'targetClass' => Label::class, 'targetAttribute' => ['labels' => 'id'], 'message' => 'labels должен быть массивом id ярлыков']],
+            [['labels'], 'each', 'rule' => ['exist', 'skipOnError' => true, 'targetClass' => Label::class, 'targetAttribute' => ['labels' => 'id'], 'message' => 'labels должен быть массивом id ярлыков'], 
+            'message' => 'labels должен быть массивом id ярлыков'],
 
             ['id', 'oneRequiredParam'],
         ];

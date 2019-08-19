@@ -5,6 +5,7 @@ namespace frontend\modules\api\v1\models\task;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\GetInfoByEntity;
 use frontend\modules\api\v1\models\entity\Task;
+use yii\helpers\ArrayHelper;
 
 class GetInfoByTask extends ValidationModel implements GetInfoByEntity
 {
@@ -26,6 +27,11 @@ class GetInfoByTask extends ValidationModel implements GetInfoByEntity
             return false;
         }
 
-        return Task::findOne($this->id);
+        $task = Task::findOne($this->id);
+        $labels = ArrayHelper::getColumn($task['labelTasks'], 'id_label');
+        $task->labels = $labels;
+        $task->setLabels($labels);
+
+        return $task;
     }
 }

@@ -19,6 +19,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class Task extends \yii\db\ActiveRecord
 {
+    public $labels;
     /**
      * {@inheritdoc}
      */
@@ -83,6 +84,16 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasOne(Column::class, ['id' => 'id_column']);
     }
 
+    public function setLabels($value)
+    {
+        $this->labels = $value;
+    }
+
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
     public function fields()
     {
         return [
@@ -90,7 +101,7 @@ class Task extends \yii\db\ActiveRecord
             'title',
             'description',
             'position',
-            'labelTasks',
+            'labels',
         ];
     }
 }

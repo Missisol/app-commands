@@ -82,9 +82,7 @@ class LabelTask extends \yii\db\ActiveRecord
     public function fields()
     {
         return [
-            'id',
-            'id_task',
-            'id_label',
+            'id_label'
         ];
     }
 }

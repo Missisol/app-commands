@@ -27,11 +27,6 @@ class GetInfoByTask extends ValidationModel implements GetInfoByEntity
             return false;
         }
 
-        $task = Task::findOne($this->id);
-        $labels = ArrayHelper::getColumn($task['labelTasks'], 'id_label');
-        $task->labels = $labels;
-        $task->setLabels($labels);
-
-        return $task;
+        return Task::findOne($this->id);
     }
 }

@@ -3,6 +3,7 @@
 namespace frontend\modules\api\v1\models\entity;
 
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "task".
@@ -20,6 +21,7 @@ use yii\behaviors\TimestampBehavior;
 class Task extends \yii\db\ActiveRecord
 {
     public $labels;
+
     /**
      * {@inheritdoc}
      */
@@ -103,5 +105,10 @@ class Task extends \yii\db\ActiveRecord
             'position',
             'labels',
         ];
+    }
+
+    public function afterFind()
+    {
+        $this->labels = ArrayHelper::getColumn($this->labelTasks, 'id_label');    
     }
 }

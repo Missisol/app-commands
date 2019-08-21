@@ -33,7 +33,7 @@ class UpdateListItem extends ValidationModel implements ActionByEntity
             [['title'], 'default'],
             ['title', 'string', 'max' => 255, 'message' => 'Максимальная длина названия пункта списка - 255 символов.'],
             ['execution', 'integer'],
-            ['execution', 'in', 'range' => [ListItem::ITEM_DONE, ListItem::ITEM_NOT_DONE], 
+            ['execution', 'in', 'range' => [ListItem::ITEM_NOT_DONE, ListItem::ITEM_DONE], 
                 'message' => 'Значение исполнения может быть 0 (не исполнено) или 1 (исполнено)'],
 
             ['id', 'oneRequiredParam'],
@@ -43,7 +43,7 @@ class UpdateListItem extends ValidationModel implements ActionByEntity
     public function oneRequiredParam()
     {
         if (!$this->hasErrors()) {
-            if (null == $this->title && null == $this->execution) {
+            if (null === $this->title && null === $this->execution) {
                 $this->addError('params', 'Обязательно должно быть передано название (title) '.
                     'или исполнение пункта списка (execution).');
             }

@@ -12,6 +12,8 @@ use yii\helpers\ArrayHelper;
 
 class UpdateTask extends ValidationModel implements ActionByEntity
 {
+    private const LABEL_ERROR = 'labels должен быть массивом id ярлыков';
+
     public $id;
     public $title;
     public $description;
@@ -20,7 +22,7 @@ class UpdateTask extends ValidationModel implements ActionByEntity
     public function __construct($id)
     {
         parent::__construct();
-        $this->id = (int) $id;
+        $this->id = $id;
     }
 
     /**
@@ -35,12 +37,11 @@ class UpdateTask extends ValidationModel implements ActionByEntity
                 'message' => 'Задачи с данным id не существует', ],
 
             [['title', 'description'], 'trim'],
-            [['title', 'description', 'labels'], 'default'],
+            [['title', 'description'], 'default'],
             ['title', 'string', 'max' => 255, 'message' => 'Максимальная длина названия задачи - 255 символов.'],
             ['description', 'string'],
 
-            [['labels'], 'each', 'rule' => ['exist', 'skipOnError' => true, 'targetClass' => Label::class, 'targetAttribute' => ['labels' => 'id'], 'message' => 'labels должен быть массивом id ярлыков'], 
-            'message' => 'labels должен быть массивом id ярлыков'],
+            [['labels'], 'each', 'rule' => ['exist', 'skipOnError' => true, 'targetClass' => Label::class, 'targetAttribute' => ['labels' => 'id'], 'message' => self::LABEL_ERROR], 'message' => self::LABEL_ERROR],
 
             ['id', 'oneRequiredParam'],
         ];
@@ -49,7 +50,7 @@ class UpdateTask extends ValidationModel implements ActionByEntity
     public function oneRequiredParam()
     {
         if (!$this->hasErrors()) {
-            if (null == $this->title && null == $this->description && null == $this->labels) {
+            if (null == $this->title && null == $this->description && null === $this->labels) {
                 $this->addError('params', 'Обязательно должно быть передано название (title), '.
                     'описание задачи (description) или массив ярлыков (labels).');
             }
@@ -62,7 +63,7 @@ class UpdateTask extends ValidationModel implements ActionByEntity
             return false;
         }
 
-        if ($this->labels) {
+        if (null !== $this->labels) {
             return $this->changeLabels();
         }
 

@@ -2,21 +2,19 @@
 
 namespace frontend\modules\api\v1\models\entity;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "listItem".
  *
- * @property int $id
+ * @property int    $id
  * @property string $title
- * @property int $execution
- * @property int $position
- * @property int $id_list
- * @property int $created_at
- * @property int $updated_at
- *
- * @property List $list
+ * @property int    $execution
+ * @property int    $position
+ * @property int    $id_list
+ * @property int    $created_at
+ * @property int    $updated_at
+ * @property List   $list
  */
 class ListItem extends \yii\db\ActiveRecord
 {
@@ -24,6 +22,7 @@ class ListItem extends \yii\db\ActiveRecord
 
     const ITEM_DONE = 1;
     const ITEM_NOT_DONE = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -80,5 +79,15 @@ class ListItem extends \yii\db\ActiveRecord
     public function getList()
     {
         return $this->hasOne(ListUser::class, ['id' => 'id_list']);
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'title',
+            'execution',
+            'position'
+        ];
     }
 }

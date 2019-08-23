@@ -76,7 +76,7 @@ abstract class ApiController extends Controller
     {
         $errorValidation = $model->getErrorMessage();
 
-        return $errorValidation ? $errorValidation : self::MESSAGE_ERROR_SERVER;
+        return $errorValidation ? $errorValidation : ['error' => self::MESSAGE_ERROR_SERVER];
     }
 
     /**

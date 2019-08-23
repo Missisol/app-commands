@@ -5,6 +5,7 @@ namespace frontend\modules\api\v1\models\task;
 use frontend\modules\api\v1\models\ValidationModel;
 use frontend\modules\api\v1\models\GetInfoByEntity;
 use frontend\modules\api\v1\models\entity\Task;
+use yii\helpers\ArrayHelper;
 
 class GetInfoByTask extends ValidationModel implements GetInfoByEntity
 {

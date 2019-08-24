@@ -20,6 +20,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Column extends \yii\db\ActiveRecord
 {
+    const INCREASE_POSITION = 100;
+    
     /**
      * {@inheritdoc}
      */

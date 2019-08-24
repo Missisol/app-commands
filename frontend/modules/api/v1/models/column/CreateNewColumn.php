@@ -34,11 +34,19 @@ class CreateNewColumn extends ValidationModel implements CreateNewEntity
             return false;
         }
 
+        $position = Column::find()
+            ->where(['id_board' => $this->id_board])
+            ->max('position') + Column::INCREASE_POSITION;
+
         $column = new Column([
             'title' => $this->title,
-            'id_board' => $this->id_board
+            'id_board' => $this->id_board,
+            'position' => $position
         ]);
 
-        return $column->save(false) ? ['id' => $column->id] : false;
+        return $column->save(false) ? [
+            'id' => $column->id,
+            'position' => $position,
+        ] : false;
     }
 }

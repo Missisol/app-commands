@@ -14,8 +14,7 @@ return [
         ],*/
         'sendGrid' => [
             'class' => 'bryglen\sendgrid\Mailer',
-            'username' => 'your_user_name',
-            'password' => 'your password here',
+            'apiKey' => getenv('SENDGRID_API_KEY'),
             'viewPath' => '@common/mail',
         ],
     ],

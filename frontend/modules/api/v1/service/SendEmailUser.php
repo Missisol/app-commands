@@ -20,8 +20,19 @@ class SendEmailUser
         if ($email == "") 
             $email = $user->email;
             
-        return Yii::$app
+        /*return Yii::$app
             ->mailer
+            ->compose(
+                ['html' => $viewEmail . '-html', 'text' => $viewEmail . '-text'],
+                ['user' => $user]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo($email)
+            ->setSubject($subjectEmail . Yii::$app->name)
+            ->send();*/
+
+        return Yii::$app
+            ->sendGrid
             ->compose(
                 ['html' => $viewEmail . '-html', 'text' => $viewEmail . '-text'],
                 ['user' => $user]

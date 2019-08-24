@@ -8,8 +8,14 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
-        'mailer' => [
+        /*'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+        ],*/
+        'sendGrid' => [
+            'class' => 'bryglen\sendgrid\Mailer',
+            'username' => 'your_user_name',
+            'password' => 'your password here',
             'viewPath' => '@common/mail',
         ],
     ],

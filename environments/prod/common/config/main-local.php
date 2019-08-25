@@ -8,14 +8,11 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
-        /*'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+        'mailer' => [
+            'class' => 'wadeshuler\sendgrid\Mailer',
             'viewPath' => '@common/mail',
-        ],*/
-        'sendGrid' => [
-            'class' => 'bryglen\sendgrid\Mailer',
+            'useFileTransport' => false,
             'apiKey' => getenv('SENDGRID_API_KEY'),
-            'viewPath' => '@common/mail',
-        ],
+        ]
     ],
 ];

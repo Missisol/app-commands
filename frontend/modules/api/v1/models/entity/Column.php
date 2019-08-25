@@ -97,6 +97,7 @@ class Column extends \yii\db\ActiveRecord
             'id',
             'title',
             'position',
+            'id_board',
             'lists',
             'tasks'
         ];

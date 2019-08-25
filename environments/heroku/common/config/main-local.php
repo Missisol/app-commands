@@ -19,19 +19,14 @@ return [
             'password' => $password,
             'charset' => 'utf8',
         ],
-        /*'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+        'mailer' => [
+            'class' => 'wadeshuler\sendgrid\Mailer',
             'viewPath' => '@common/mail',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
-        ],*/
-        'sendGrid' => [
-            'class' => 'bryglen\sendgrid\Mailer',
-            'username' => 'your_user_name',
-            'password' => 'your password here',
-            'viewPath' => '@common/mail',
+            'useFileTransport' => false,
+            'apiKey' => getenv('SENDGRID_API_KEY'),
         ],
     ],
 ];

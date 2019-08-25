@@ -18,8 +18,7 @@
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "sendgrid/sendgrid": "2.2.1",
-        "bryglen/yii2-sendgrid": "*"
+        "wadeshuler/yii2-sendgrid": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

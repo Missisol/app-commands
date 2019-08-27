@@ -9,8 +9,10 @@ return [
             'charset' => 'utf8',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => 'wadeshuler\sendgrid\Mailer',
             'viewPath' => '@common/mail',
-        ],
+            'useFileTransport' => false,
+            'apiKey' => getenv('SENDGRID_API_KEY'),
+        ]
     ],
 ];
